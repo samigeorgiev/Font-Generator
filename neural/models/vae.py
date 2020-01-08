@@ -29,20 +29,36 @@ class VAE(nn.Module):
     
     '''
 
-    def __init__(self, latent_dim=64, beta=5):
+    def __init__(self, latent_dim=64, beta=5,
+                    in_channels=1, num_hiddens=128, num_res_hiddens=32, num_res_layers=2, out_channels=1):
+
         super(VAE, self).__init__()
 
         self.latent_dim = latent_dim
         self.beta = beta
 
-        self.fc1 = nn.Linear(784, 400)
-        self.fc21 = nn.Linear(400, latent_dim)
-        self.fc22 = nn.Linear(400, latent_dim)
-        self.fc3 = nn.Linear(latent_dim, 400)
-        self.fc4 = nn.Linear(400, 784)
+        # Encoder
+        self.encoder = ResEncoder(in_channels, num_hiddens, num_res_hiddens, num_res_layers)
+
+        # Pre-Variational Convolution
+        self.pre_variational_conv = nn.Conv2d(num_hiddens, latent_dim*4, kernel_size=1, stride=1)
+
+        # Compute Mean and LogVar
+        self.fc1 = nn.Linear(latent_dim*4, latent_dim*2)
+        self.fc21 = nn.Linear(latent_dim*2, latent_dim)
+        self.fc22 = nn.Linear(latent_dim*2, latent_dim)
+
+        # Setup for Decoder
+        self.fc3 = nn.Linear(latent_dim, latent_dim*2)
+        self.fc4 = nn.Linear(latent_dim*2, latent_dim*4)
+
+        # Decoder
+        self.decoder = ResDecoder(latent_dim*4, num_hiddens, num_res_hiddens, num_res_layers, out_channels)
 
     def encode(self, x):
-        h1 = F.relu(self.fc1(x))
+        conv_out = self.pre_variational_conv( self.encoder(x) )
+        h1 = self.fc1(conv_out.view(-1, self.latent_dim*4))
+
         return self.fc21(h1), self.fc22(h1)
 
     def reparameterize(self, mu, logvar):
@@ -52,7 +68,10 @@ class VAE(nn.Module):
 
     def decode(self, z):
         h3 = F.relu(self.fc3(z))
-        return torch.sigmoid(self.fc4(h3))
+        h4 = self.fc4(h3)
+        deconv_input = h4.view(-1, self.latent_dim*4, 1, 1)
+
+        return self.decoder(deconv_input)
 
     def forward(self, x):
         mu, logvar = self.encode(x)

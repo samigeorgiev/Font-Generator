@@ -2,6 +2,7 @@
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 __all__ = [
     'ResBlock',
@@ -62,19 +63,19 @@ class ResEncoder(nn.Module):
 
     def forward(self, x):
         x = self.conv_1(x)
-        x = torch.relu(x)
+        x = F.relu(x)
 
         x = self.conv_2(x)
-        x = torch.relu(x)
+        x = F.relu(x)
 
         x = self.conv_3(x)
-        x = torch.relu(x)
+        x = F.relu(x)
 
         return self.res_stack(x)
 
 class ResDecoder(nn.Module):
 
-    def __init__(self, in_channels, num_hiddens, num_res_hiddens, num_res_layers, rgb_out=True):
+    def __init__(self, in_channels, num_hiddens, num_res_hiddens, num_res_layers, out_channels=3):
         super(ResDecoder, self).__init__()
 
         self.conv_1 = nn.Conv2d(in_channels, num_hiddens,
@@ -85,17 +86,17 @@ class ResDecoder(nn.Module):
         self.conv_trans_1 = nn.ConvTranspose2d(num_hiddens, num_hiddens//2,
                         kernel_size=4, stride=2, padding=1)
         
-        self.conv_trans_2 = nn.ConvTranspose2d(num_hiddens//2, 3 if rgb_out else 1,
+        self.conv_trans_2 = nn.ConvTranspose2d(num_hiddens//2, out_channels,
                         kernel_size=4, stride=2, padding=1)
 
     def forward(self, x):
         x = self.conv_1(x)
-        x = torch.relu(x)
+        x = F.relu(x)
 
         x = self.res_stack(x)
 
         x = self.conv_trans_1(x)
-        x = torch.relu(x)
+        x = F.relu(x)
 
         x = self.conv_trans_2(x)
-        return torch.sigmoid(x)
+        return F.sigmoid(x)
