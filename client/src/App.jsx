@@ -1,11 +1,17 @@
 import React, {Component} from "react";
 
+import Layout from 'components/Layout';
+
 class App extends Component {
+    state = {
+        user: null
+    };
+
     render() {
         return (
-            <div>
-                Font generator
-            </div>
+            <Layout>
+
+            </Layout>
         );
     }
 }
