@@ -75,7 +75,7 @@ class ResEncoder(nn.Module):
 
 class ResDecoder(nn.Module):
 
-    def __init__(self, in_channels, num_hiddens, num_res_hiddens, num_res_layers, out_channels=3):
+    def __init__(self, in_channels, num_hiddens, num_res_hiddens, num_res_layers, out_channels):
         super(ResDecoder, self).__init__()
 
         self.conv_1 = nn.Conv2d(in_channels, num_hiddens,
@@ -99,4 +99,4 @@ class ResDecoder(nn.Module):
         x = F.relu(x)
 
         x = self.conv_trans_2(x)
-        return F.sigmoid(x)
+        return torch.sigmoid(x)

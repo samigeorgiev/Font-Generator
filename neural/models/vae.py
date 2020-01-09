@@ -43,6 +43,9 @@ class VAE(nn.Module):
         # Pre-Variational Convolution
         self.pre_variational_conv = nn.Conv2d(num_hiddens, latent_dim*4, kernel_size=1, stride=1)
 
+        # Output Shape
+        self.encoder_output_shape = None
+
         # Compute Mean and LogVar
         self.fc1 = nn.Linear(latent_dim*4, latent_dim*2)
         self.fc21 = nn.Linear(latent_dim*2, latent_dim)
@@ -57,8 +60,9 @@ class VAE(nn.Module):
 
     def encode(self, x):
         conv_out = self.pre_variational_conv( self.encoder(x) )
-        h1 = self.fc1(conv_out.view(-1, self.latent_dim*4))
+        self.encoder_output_shape = conv_out.shape
 
+        h1 = self.fc1(conv_out.view(-1, self.latent_dim*4))
         return self.fc21(h1), self.fc22(h1)
 
     def reparameterize(self, mu, logvar):
@@ -69,8 +73,8 @@ class VAE(nn.Module):
     def decode(self, z):
         h3 = F.relu(self.fc3(z))
         h4 = self.fc4(h3)
-        deconv_input = h4.view(-1, self.latent_dim*4, 1, 1)
 
+        deconv_input = h4.view(*self.encoder_output_shape)
         return self.decoder(deconv_input)
 
     def forward(self, x):

@@ -11,4 +11,4 @@ PATH_TO_FOLDER = '/Users/victor/Desktop/Font-Generator/neural/data/'
 
 BATCH_SIZE = 256
 SHUFFLE = True
-NUM_WORKERS = 0
+NUM_WORKERS = 4
