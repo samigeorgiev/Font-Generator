@@ -9,6 +9,6 @@ __all__ = [
 
 PATH_TO_FOLDER = './data'
 
-BATCH_SIZE = 64
+BATCH_SIZE = 32
 SHUFFLE = True
 NUM_WORKERS = 4
