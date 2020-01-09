@@ -7,8 +7,8 @@ __all__ = [
 ]
 
 
-PATH_TO_FOLDER = '/Users/victor/Desktop/Font-Generator/neural/data/'
+PATH_TO_FOLDER = './data'
 
-BATCH_SIZE = 256
+BATCH_SIZE = 64
 SHUFFLE = True
 NUM_WORKERS = 4
