@@ -12,7 +12,7 @@ __all__ = [
 
 
 class VAE(nn.Module):
-    ''' beta-Variational AutoEncoder
+    ''' Convolutional beta-Variational AutoEncoder
 
     Implementation of the ideas presented here:
 
@@ -29,8 +29,8 @@ class VAE(nn.Module):
     
     '''
 
-    def __init__(self, latent_dim=64, beta=5,
-                    in_channels=1, num_hiddens=128, num_res_hiddens=32, num_res_layers=2, out_channels=1):
+    def __init__(self, latent_dim=128, beta=5,
+                    in_channels=1, num_hiddens=256, num_res_hiddens=64, num_res_layers=4, out_channels=1):
 
         super(VAE, self).__init__()
 
@@ -41,7 +41,7 @@ class VAE(nn.Module):
         self.encoder = ResEncoder(in_channels, num_hiddens, num_res_hiddens, num_res_layers)
 
         # Pre-Variational Convolution
-        self.pre_variational_conv = nn.Conv2d(num_hiddens, latent_dim*4, kernel_size=1, stride=1)
+        self.post_encoder = nn.Conv2d(num_hiddens, latent_dim*4, kernel_size=1, stride=1)
 
         # Output Shape
         self.encoder_output_shape = None
@@ -59,10 +59,13 @@ class VAE(nn.Module):
         self.decoder = ResDecoder(latent_dim*4, num_hiddens, num_res_hiddens, num_res_layers, out_channels)
 
     def encode(self, x):
-        conv_out = self.pre_variational_conv( self.encoder(x) )
+        conv_out = self.post_encoder( self.encoder(x) )
+
+        # Reshape BCHW -> BHWC
+        conv_out = conv_out.permute(0, 2, 3, 1)
         self.encoder_output_shape = conv_out.shape
 
-        h1 = self.fc1(conv_out.view(-1, self.latent_dim*4))
+        h1 = self.fc1(conv_out.reshape(-1, conv_out.shape[-1]))
         return self.fc21(h1), self.fc22(h1)
 
     def reparameterize(self, mu, logvar):
@@ -74,7 +77,8 @@ class VAE(nn.Module):
         h3 = F.relu(self.fc3(z))
         h4 = self.fc4(h3)
 
-        deconv_input = h4.view(*self.encoder_output_shape)
+        # Reshape MC -> BHWC -> BCHW
+        deconv_input = h4.reshape(self.encoder_output_shape).permute(0, 3, 1, 2)
         return self.decoder(deconv_input)
 
     def forward(self, x):
