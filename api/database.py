@@ -24,3 +24,7 @@ class DB:
 
     def __exit__(self, type, value, traceback):
         self.conn.commit()
+
+    def get_favourites(uid):
+        pass #TODO
+
