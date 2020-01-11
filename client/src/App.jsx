@@ -1,5 +1,6 @@
-import React, {Component} from "react";
+import React, {Component} from 'react';
 
+import Auth from 'pages/Auth';
 import Layout from 'components/Layout';
 
 class App extends Component {
@@ -10,7 +11,7 @@ class App extends Component {
     render() {
         return (
             <Layout>
-
+                <Auth />
             </Layout>
         );
     }
