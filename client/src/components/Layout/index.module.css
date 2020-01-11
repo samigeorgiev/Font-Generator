@@ -9,6 +9,9 @@
 }
 
 .Layout > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     grid-area: header;
     background: #1e1f26;
 }
