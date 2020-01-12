@@ -1,6 +1,6 @@
 .Layout {
     display: grid;
-    grid-template-rows: 6.5em auto 2.5em;
+    grid-template-rows: 6em auto 2.5em;
     grid-row-gap: 0.5em;
     grid-template-areas: "header"
                          "main"
@@ -37,4 +37,10 @@
 .GitHubLogo {
     height: 50%;
     padding: 1.5rem;
+}
+
+@media (min-width: 50rem) {
+    .Layout {
+        grid-template-rows: 6.5em auto 2.5em;
+    }
 }

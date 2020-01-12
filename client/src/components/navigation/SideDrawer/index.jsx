@@ -17,7 +17,7 @@ const sideDrawer = props => {
         <>
             <Backdrop click={props.close} isShown={props.isShown} />
             <nav className={classes.join(' ')}>
-                <ul>
+                <ul className={styles.NavigationLinks}>
                     {props.links.map(link => (
                         <NavigationLink key={link.to} to={link.to}>
                             {link.value}

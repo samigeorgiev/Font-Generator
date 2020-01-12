@@ -1,14 +1,21 @@
 .Toolbar {
-    height: 100%;
-    box-sizing: border-box;
+    display: none;
 }
 
-.NavigationLinks {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+@media (min-width: 50rem) {
+    .Toolbar {
+        display: block;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .NavigationLinks {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
 }

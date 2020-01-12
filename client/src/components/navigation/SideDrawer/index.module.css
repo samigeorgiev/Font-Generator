@@ -9,6 +9,17 @@
     transition: transform 0.3s ease-out;
 }
 
+.NavigationLinks {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+}
+
 .Open {
     transform: translateX(0);
 }

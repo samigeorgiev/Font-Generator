@@ -4,20 +4,34 @@
 
 .NavigationLink a {
     display: block;
-    padding: 1.5em 0;
-    color: #aaa;
-    border-top: 4px solid transparent;
+    margin: 1rem 0;
+    color: #777;
     font-size: 1.5rem;
     text-decoration: none;
 }
 
-.NavigationLink a:hover {
-    color: #ccc;
-    border-top: 4px solid #ccc;
-}
-
+.NavigationLink a:hover,
 .NavigationLink a:active,
 .NavigationLink a.active {
-    color: #eee;
-    border-top: 4px solid #eee;
+    color: #aaa;
+}
+
+@media (min-width: 50rem) {
+    .NavigationLink a {
+        margin: 0;
+        padding: 1.5em 0;
+        color: #aaa;
+        border-top: 4px solid transparent;
+    }
+
+    .NavigationLink a:hover {
+        color: #ccc;
+        border-top: 4px solid #ccc;
+    }
+
+    .NavigationLink a:active,
+    .NavigationLink a.active {
+        color: #eee;
+        border-top: 4px solid #eee;
+    }
 }

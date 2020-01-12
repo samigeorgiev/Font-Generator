@@ -3,9 +3,9 @@
     flex-flow: column;
     justify-content: space-around;
     align-items: center;
-    width: 40px;
+    width: 6rem;
     height: 100%;
-    padding: 10px 0;
+    padding: 1rem;
     box-sizing: border-box;
     cursor: pointer;
 }
