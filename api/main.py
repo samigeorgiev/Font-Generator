@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request
+from flask import request, redirect
 from flask_httpauth import HTTPBasicAuth
 from database import DB
 
@@ -9,20 +9,17 @@ auth = HTTPBasicAuth()
 
 db = DB()
 
-@app.route('/')
-def home_page():
-    return render_template('home.html')
+@app.route('/register', methods=['POST'])
+def register():
+    pass #TODO
+    print("REGISTER ATTEMPT!")
+    print(request.form['username'])
+    return {"success": True}
 
-@app.route('/login', methods=['GET', 'POST', 'PUT'])
-def login_page():
-    if request.method == 'GET': # just got to the page
-        return render_template('login.html')
-    elif request.method == 'PUT': # wants to login
-        pass #TODO
-        return redirect('/')
-    else: # wants to register from the login page
-        pass #TODO 
-        return redirect('/')
+@app.route('/login', methods=['PUT'])
+def login():
+    pass #TODO
+    return redirect('/')
 
 @app.route('/favourites')
 @auth.login_required
@@ -31,7 +28,7 @@ def favourites_redirect():
 
 @app.route('/favourites/<uid>')
 def favourites(uid):
-    return render_template('favourites.html', posts=db.get_favourites(uid))
+    return db.get_favourites(uid)
 
 if __name__ == '__main__':
     app.run()
