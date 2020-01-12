@@ -16,9 +16,7 @@ const layout = props => (
             <Toolbar />
             <Logo />
         </header>
-        <main>
-            {props.children}
-        </main>
+        {props.children}
         <footer>
             <p>&copy; 2019 - {new Date().getFullYear()} All rights reserved | Sami</p>
         </footer>

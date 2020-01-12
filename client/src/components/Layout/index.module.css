@@ -21,8 +21,6 @@
 
 .Layout > main {
     grid-area: main;
-    align-self: center;
-    justify-self: center;
 }
 
 .Layout > footer {
