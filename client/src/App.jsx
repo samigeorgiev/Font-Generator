@@ -13,7 +13,7 @@ class App extends Component {
 
     render() {
         return (
-            <Layout>
+            <Layout isAuth={Boolean(this.state.user)}>
                 <Switch>
                     <Route path="/">
                         <Home />
