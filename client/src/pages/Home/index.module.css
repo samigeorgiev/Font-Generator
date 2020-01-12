@@ -2,3 +2,8 @@
     align-self: center;
     justify-self: center;
 }
+
+.PageHeading {
+    font-size: 4rem;
+    font-weight: 100;
+}

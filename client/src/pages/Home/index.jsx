@@ -6,7 +6,7 @@ class Home extends Component {
     render() {
         return (
             <main className={styles.Home}>
-                Home
+                <h1 className={styles.PageHeading}>Font Generator</h1>
             </main>
         );
     }
