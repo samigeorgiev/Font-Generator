@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import DrawerToggle from 'components/navigation/SideDrawer/DrawerToggle';
 import Logo from 'components/Logo';
+import SideDrawer from 'components/navigation/SideDrawer';
 import Toolbar from 'components/navigation/Toolbar';
 
 import styles from './index.module.css';
@@ -11,6 +12,14 @@ import styles from './index.module.css';
 class Layout extends Component {
     state = {
         isSideDrawerOpen: false
+    }
+
+    sideDrawerHandler = () => {
+        this.setState(prevState => {
+           return {
+               isSideDrawerOpen: !prevState.isSideDrawerOpen
+           };
+        });
     }
 
     render() {
@@ -28,10 +37,11 @@ class Layout extends Component {
         return (
             <div className={styles.Layout}>
                 <header>
-                    <DrawerToggle />
+                    <DrawerToggle click={this.sideDrawerHandler} />
                     <div className={styles.FGLogo}>
                         <NavLink to="/" exact><Logo src="FGLogo"/></NavLink>
                     </div>
+                    <SideDrawer isShown={this.state.isSideDrawerOpen} links={links} close={this.sideDrawerHandler} />
                     <Toolbar links={links} />
                     <div className={styles.GitHubLogo}>
                         <NavLink to="/" exact><Logo src="GitHubLogo"/></NavLink>
