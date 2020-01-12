@@ -1,6 +1,8 @@
 import torch.nn as nn
 import torch.nn.functional as F
 
+from .convolutional import ResDecoder, ResEncoder
+
 __all__ = [
     'AutoEncoder',
 ]
@@ -10,25 +12,22 @@ class AutoEncoder(nn.Module):
     '''Convolutional AutoEncoder
     '''
 
-    def __init__(self):
+    def __init__(self, latent_dim=512,
+            in_channels=1, num_hiddens=256, num_res_hiddens=64,num_res_layers=4, out_channels=1):
+
         super(AutoEncoder, self).__init__()
 
-        self.encoder = nn.Sequential(
-            nn.Conv2d(1, 16, 3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(16, 8, 3, stride=1, padding=1),
-            nn.Sigmoid(),
-        )
+        # Encoder
+        self.encoder = ResEncoder(in_channels, num_hiddens, num_res_hiddens, num_res_layers)
 
-        self.decoder = nn.Sequential(
-            nn.ConvTranspose2d(8, 16, 3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.ConvTranspose2d(16, 1, 3, stride=1, padding=1),
-            nn.Sigmoid()
-        )
+        # Post-Encoder Convolution
+        self.post_encoder = nn.Conv2d(num_hiddens, latent_dim, kernel_size=1, stride=1)
+
+        # Decoder
+        self.decoder = ResDecoder(latent_dim, num_hiddens, num_res_hiddens, num_res_layers, out_channels)
 
     def forward(self, x):
-        latent_vector = self.encoder(x)
+        latent_vector = self.post_encoder( self.encoder(x) )
         reconstruction = self.decoder(latent_vector)
 
         return latent_vector, reconstruction
