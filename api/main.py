@@ -1,5 +1,6 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, request
+from flask_httpauth import HTTPBasicAuth
 from database import DB
 
 app = Flask(__name__)
@@ -10,12 +11,12 @@ db = DB()
 
 @app.route('/')
 def home_page():
-    return render_template('home_page.html')
+    return render_template('home.html')
 
 @app.route('/login', methods=['GET', 'POST', 'PUT'])
 def login_page():
     if request.method == 'GET': # just got to the page
-        return render_template('login_page.html')
+        return render_template('login.html')
     elif request.method == 'PUT': # wants to login
         pass #TODO
         return redirect('/')
