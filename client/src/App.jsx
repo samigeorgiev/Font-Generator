@@ -15,9 +15,14 @@ class App extends Component {
         return (
             <Layout isAuth={Boolean(this.state.user)}>
                 <Switch>
-                    <Route path="/">
+                    <Route path="/" exact>
                         <Home />
                     </Route>
+                    {this.state.user
+                        ? <Route path="/auth">
+                            <Auth />
+                        </Route>
+                        : null}
                 </Switch>
             </Layout>
         );
