@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import { Route, Switch } from 'react-router-dom';
+
 import Auth from 'pages/Auth';
 import Layout from 'components/Layout';
 
@@ -11,7 +13,11 @@ class App extends Component {
     render() {
         return (
             <Layout>
-                <Auth />
+                <Switch>
+                    <Route path="/">
+                        <Auth />
+                    </Route>
+                </Switch>
             </Layout>
         );
     }

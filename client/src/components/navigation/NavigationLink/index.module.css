@@ -1,0 +1,26 @@
+.NavigationLink {
+    display: block;
+    margin: 0 1.5em;
+    padding: 1.5em 0;
+    box-sizing: border-box;
+    color: #aaa;
+    border-top: 4px solid transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.NavigationLink:hover {
+    color: #ccc;
+    border-top: 4px solid #ccc;
+}
+
+.NavigationLink:active,
+.NavigationLink.active {
+    color: #eee;
+    border-top: 4px solid #eee;
+}
+
+.NavigationLink a {
+    text-decoration: none;
+    color: inherit;
+}
