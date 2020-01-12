@@ -21,7 +21,7 @@
 
 .Layout > main {
     grid-area: main;
-    align-self: center;
+    align-self: start;
     justify-self: center;
 }
 
