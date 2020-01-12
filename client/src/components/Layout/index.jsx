@@ -44,7 +44,7 @@ class Layout extends Component {
                     <SideDrawer isShown={this.state.isSideDrawerOpen} links={links} close={this.sideDrawerHandler} />
                     <Toolbar links={links} />
                     <div className={styles.GitHubLogo}>
-                        <NavLink to="/" exact><Logo src="GitHubLogo"/></NavLink>
+                        <a href="https://github.com/samigeorgiev/Font-Generator"><Logo src="GitHubLogo" /></a>
                     </div>
                 </header>
                 {this.props.children}
