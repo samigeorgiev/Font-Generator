@@ -10,11 +10,13 @@ import styles from './index.module.css';
 const layout = props => (
     <div className={styles.Layout}>
         <header>
-            <div className={styles.HomeLink}>
-                <NavLink to="/" exact><Logo /></NavLink>
+            <div className={styles.FGLogo}>
+                <NavLink to="/" exact><Logo src="FGLogo" /></NavLink>
             </div>
             <Toolbar />
-            <Logo />
+            <div className={styles.GitHubLogo}>
+                <NavLink to="/" exact><Logo src="GitHubLogo" /></NavLink>
+            </div>
         </header>
         {props.children}
         <footer>

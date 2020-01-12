@@ -7,7 +7,7 @@ import styles from './index.module.css';
 const navigationLink = props => {
     return (
         <li className={styles.NavigationLink}>
-            <NavLink to={props.to} activeClassName={styles.active}>
+            <NavLink to={props.to} activeClassName={styles.active} exact>
                 {props.children}
             </NavLink>
         </li>

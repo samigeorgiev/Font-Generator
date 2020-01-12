@@ -6,10 +6,9 @@ import styles from './index.module.css';
 
 const toolbar = props => {
     const links = [
-        { to: 'test1', value: 'Test' },
-        { to: 'test2', value: 'Test' },
-        { to: 'test3', value: 'Test' },
-        { to: 'test4', value: 'Test' }
+        { to: '/', value: 'Home' },
+        { to: '/generator', value: 'New font' },
+        { to: '/auth', value: 'Authenticate' }
     ];
 
     return (
