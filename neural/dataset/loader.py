@@ -1,5 +1,5 @@
 from torch.utils.data import DataLoader
-from torchvision.transforms import Compose, ToTensor
+from torchvision.transforms import Compose, Resize, ToTensor
 
 from . import CONFIG
 from .dataset import FontsDataset
@@ -16,6 +16,7 @@ class FontsLoader:
     @staticmethod
     def _get_transform():
         return Compose([
+            Resize(CONFIG.TARGET_IMG_SIZE),
             ToTensor(),
         ])
 

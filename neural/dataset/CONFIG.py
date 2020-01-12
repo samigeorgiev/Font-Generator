@@ -4,6 +4,8 @@ __all__ = [
     'BATCH_SIZE',
     'SHUFFLE',
     'NUM_WORKERS',
+
+    'TARGET_IMG_SIZE',
 ]
 
 
@@ -12,3 +14,5 @@ PATH_TO_FOLDER = './data'
 BATCH_SIZE = 32
 SHUFFLE = True
 NUM_WORKERS = 4
+
+TARGET_IMG_SIZE = (112, 112)

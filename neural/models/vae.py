@@ -40,7 +40,7 @@ class VAE(nn.Module):
         # Encoder
         self.encoder = ResEncoder(in_channels, num_hiddens, num_res_hiddens, num_res_layers)
 
-        # Pre-Variational Convolution
+        # Post-Encoder Convolution
         self.post_encoder = nn.Conv2d(num_hiddens, latent_dim*4, kernel_size=1, stride=1)
 
         # Output Shape

@@ -41,8 +41,7 @@ class FontsDataset(Dataset):
             idx = idx.tolist()
 
         path_to_img = os.path.join(self.path_to_folder, self._img_names[idx])
-        image = np.asarray(Image.open(path_to_img).convert('L'))
-        image = np.expand_dims(image, axis=2)
+        image = Image.open(path_to_img).convert('L')
 
         if self.transform:
             image = self.transform(image)
