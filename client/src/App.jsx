@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Auth from 'pages/Auth';
+import Home from 'pages/Home';
 import Layout from 'components/Layout';
 
 class App extends Component {
@@ -15,7 +16,7 @@ class App extends Component {
             <Layout>
                 <Switch>
                     <Route path="/">
-                        <Auth />
+                        <Home />
                     </Route>
                 </Switch>
             </Layout>
