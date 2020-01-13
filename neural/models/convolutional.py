@@ -27,11 +27,10 @@ class ResBlock(nn.Module):
             nn.Conv2d(num_hiddens, out_channels,
                 kernel_size=1, stride=1, bias=False),
             nn.BatchNorm2d(out_channels),
-            nn.ReLU(True)
         )
 
     def forward(self, x):
-        return x + self.residual(x)
+        return F.relu(self.residual(x) + x)
 
 class ResStack(nn.Module):
 
