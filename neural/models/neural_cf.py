@@ -7,8 +7,7 @@ __all__ = [
 
 
 class NeuralCF(nn.Module):
-    ''' Neural Collaborative Filtering Recommender System
-    '''
+    ''' Neural Collaborative Filtering Recommender System '''
 
     def __init__(self, num_users=100, user_embedding_dim=256, item_embedding_dim=512, num_cf_layers=4):
         super(NeuralCF, self).__init__()

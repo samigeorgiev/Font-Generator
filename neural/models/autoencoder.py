@@ -9,8 +9,7 @@ __all__ = [
 
 
 class AutoEncoder(nn.Module):
-    '''Convolutional AutoEncoder
-    '''
+    ''' Convolutional ResNet AutoEncoder '''
 
     def __init__(self, latent_dim=512,
             in_channels=1, num_hiddens=256, num_res_hiddens=64, num_res_layers=4, out_channels=1):
