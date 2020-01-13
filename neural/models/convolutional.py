@@ -21,9 +21,12 @@ class ResBlock(nn.Module):
         self.residual = nn.Sequential(
             nn.Conv2d(in_channels, num_hiddens,
                 kernel_size=3, stride=1, padding=1, bias=False),
+            nn.BatchNorm2d(num_hiddens),
             nn.ReLU(True),
+
             nn.Conv2d(num_hiddens, out_channels,
                 kernel_size=1, stride=1, bias=False),
+            nn.BatchNorm2d(out_channels),
             nn.ReLU(True)
         )
 
