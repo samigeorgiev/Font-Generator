@@ -1,30 +1,52 @@
 import sqlite3
+import hashlib
 
-db = sqlite3.connect('database.sqlite3')
+DB_NAME = 'database.sqlite3'
 
-db.cursor().execute('''
+conn = sqlite3.connect(DB_NAME)
+
+conn.cursor().execute('''
 CREATE TABLE IF NOT EXISTS `users` (
-    `user_id` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `username` TEXT NOT NULL UNIQUE
+    `uid` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `username` TEXT NOT NULL UNIQUE,
+    `password` TEXT NOT NULL
 )''')
-db.cursor().execute('''
-CREATE TABLE IF NOT EXISTS `bookmarks` (
-    `bookmark_id` INTEGER PRIMARY KEY AUTOINCREMENT,
+conn.cursor().execute('''
+CREATE TABLE IF NOT EXISTS `favourites` (
+    `fid` INTEGER PRIMARY KEY AUTOINCREMENT,
     `user_id` INTEGER,
     `preview` TEXT,
     `font` TEXT ,
     FOREIGN KEY(`user_id`) REFERENCES `users`(`userid`)
 )''')
-db.commit()
+conn.commit()
 
-class DB:
-    def __enter__(self):
-        self.conn = sqlite3.connect(DB_NAME)
-        return self.conn.cursor()
+def username_exists(username):
+    query = """SELECT username FROM users WHERE username = ?"""
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute(query, (username,))
+    result = cursor.fetchone()
+    if result:
+        return True
+    else:
+        return False
 
-    def __exit__(self, type, value, traceback):
-        self.conn.commit()
+def hash_password(password):
+    return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
-    def get_favourites(self, uid):
-        pass #TODO
+def add_new_user(username, password):
+    try:
+        query = """INSERT INTO users (username, password) VALUES (?,?)"""
+        conn = sqlite3.connect(DB_NAME)
+        cursor = conn.cursor()
+        cursor.execute(query, (username,hash_password(password)))
+        conn.commit()
+        return True
+    except:
+        return False
+
+def get_favourites(uid):
+    pass #TODO
+    return {"bs":True}
 

@@ -1,0 +1,26 @@
+.Home {
+    align-self: center;
+    justify-self: center;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.PageHeading {
+    font-size: 2em;
+    font-weight: 100;
+}
+
+.AppDescription {
+    display: inline;
+    padding: 0 1rem;
+    font-size: 1em;
+    font-weight: 200;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+@media (min-width: 50rem) {
+    .Home {
+        font-size: 2rem;
+    }
+}
