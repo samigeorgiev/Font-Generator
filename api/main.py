@@ -1,30 +1,34 @@
 from flask import Flask
 from flask import request, redirect
 from flask_httpauth import HTTPBasicAuth
-from database import DB
+import database as db
 
 app = Flask(__name__)
 
 auth = HTTPBasicAuth()
 
-db = DB()
-
 @app.route('/register', methods=['POST'])
 def register():
-    pass #TODO
+    username = request.form['username']
+    password = request.form['password']
     print("REGISTER ATTEMPT!")
-    print(request.form['username'])
-    return {"success": True}
+    print(username)
+    if (db.username_exists(username)):
+        return {"success":False, "error":"username already taken"}
+    if (len(password) < 8):
+        return {"success":False, "error":"password too short"}
+    if (len(password) > 64):
+        return {"success":False, "error":"password too long"}
+    success = db.add_new_user(username, password)
+    if success:
+        print("REGISTERED NEW USER!")
+        return {"success": True}
+    return {"success":False, "error":"internal server error"}
 
-@app.route('/login', methods=['PUT'])
+@app.route('/login', methods=['POST'])
 def login():
-    pass #TODO
-    return redirect('/')
-
-@app.route('/favourites')
-@auth.login_required
-def favourites_redirect():
-    pass #TODO
+    # TODO
+    return {"success": True}
 
 @app.route('/favourites/<uid>')
 def favourites(uid):
