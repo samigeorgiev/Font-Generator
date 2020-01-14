@@ -6,7 +6,7 @@
     max-width: 70%;
     width: 20rem;
     background: white;
-    transition: transform 0.3s ease-out;
+    transition: transform .3s ease-out;
 }
 
 .NavigationLinks {

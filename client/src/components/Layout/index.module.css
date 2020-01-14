@@ -1,7 +1,7 @@
 .Layout {
     display: grid;
     grid-template-rows: 6em auto 2.5em;
-    grid-row-gap: 0.5em;
+    grid-row-gap: .5em;
     grid-template-areas: "header"
                          "main"
                          "footer";
@@ -27,7 +27,7 @@
     align-self: end;
     width: 100%;
     text-align: center;
-    font-size: 0.75em;
+    font-size: .75em;
 }
 
 .FGLogo {

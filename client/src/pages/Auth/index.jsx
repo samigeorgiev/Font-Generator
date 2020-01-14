@@ -13,7 +13,7 @@ class Auth extends Component {
         showLogin: 'Login'
     };
 
-    toggleFormsHandlers = () => {
+    toggleFormsHandler = () => {
         this.setState(prevState => {
             return {
                 showLogin: !prevState.showLogin
@@ -102,7 +102,7 @@ class Auth extends Component {
                         <AuthForm inputs={signupInputs} heading="Create new account" buttonContent="SIGN UP" />
                     </div>
                 </div>
-                <button onClick={this.toggleFormsHandlers}>
+                <button onClick={this.toggleFormsHandler}>
                     Signup
                 </button>
             </main>

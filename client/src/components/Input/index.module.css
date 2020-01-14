@@ -21,6 +21,6 @@
 }
 
 .ValidationError {
-    margin: 0.3rem 0;
+    margin: .3rem 0;
     color: red;
 }
