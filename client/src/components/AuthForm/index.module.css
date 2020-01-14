@@ -1,0 +1,35 @@
+.Login {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+.Login > h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+    color: black;
+}
+
+.Button {
+    width: 100%;
+    margin-top: 0.5rem ;
+    padding: .5rem;
+    background: #ccc;
+    border: none;
+    font: inherit;
+    font-weight: 400;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.Button:hover {
+    background: #aaa;
+}
+
+.Button[disabled] {
+    cursor: not-allowed;
+}

@@ -1,3 +1,42 @@
 .Auth {
+    align-self: center;
+    justify-self: center;
+    width: 49rem;
+    height: 20rem;
+    position: relative;
+    background: #777;
+    /*box-shadow: 5px 5px 10px 7px rgba(255, 255, 255, 0.25);*/
+}
 
+.FormContainer {
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    box-sizing: border-box;
+    padding: 1rem;
+    background: white;
+    transform: scale(1.2);
+}
+
+.FormContainer > div {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.Left {
+    left: 10%;
+    transition: left .75s;
+}
+
+.Right {
+    left: 50%;
+    transition: left .75s;
+}
+
+.Shown {
+    display: block;
+}
+
+.Hide {
+    display: none;
 }

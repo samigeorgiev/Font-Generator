@@ -18,7 +18,7 @@ class App extends Component {
                     <Route path="/" exact>
                         <Home />
                     </Route>
-                    {this.state.user
+                    {!this.state.user
                         ? <Route path="/auth">
                             <Auth />
                         </Route>
