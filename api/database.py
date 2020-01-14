@@ -50,3 +50,10 @@ def get_favourites(uid):
     pass #TODO
     return {"bs":True}
 
+def check_credentials(username, password):
+    #TODO
+    return True
+
+def get_uid(username):
+    #TODO
+    return 1
