@@ -22,6 +22,11 @@ def register():
         return jsonify({"success": True), 200
     return jsonify({"success":False, "error_message":"internal server error"}), 500
 
+@app.route('/user_exists', methods=['GET'])
+def user_exists():
+    username = request.form['username']
+    return {"success":True, "status":200, "response":db.username_exists(username)}
+
 @app.route('/login', methods=['POST'])
 def login():
     # TODO
