@@ -9,6 +9,7 @@
     box-sizing: border-box;
     border: 1px solid #ccc;
     font: inherit;
+    border-radius: 4px;
 }
 
 .Input:focus {
