@@ -39,12 +39,12 @@ class Layout extends Component {
                 <header>
                     <DrawerToggle click={this.sideDrawerHandler} />
                     <div className={styles.FGLogo}>
-                        <NavLink to="/" exact><Logo src="FGLogo"/></NavLink>
+                        <NavLink to="/" exact><Logo src="FGLogo" brightness="5" /></NavLink>
                     </div>
                     <SideDrawer isShown={this.state.isSideDrawerOpen} links={links} close={this.sideDrawerHandler} />
                     <Toolbar links={links} />
                     <div className={styles.GitHubLogo}>
-                        <a href="https://github.com/samigeorgiev/Font-Generator"><Logo src="GitHubLogo" /></a>
+                        <a href="https://github.com/samigeorgiev/Font-Generator"><Logo src="GitHubLogo" brightness="5" /></a>
                     </div>
                 </header>
                 {this.props.children}

@@ -36,6 +36,15 @@ class AuthForm extends Component {
         });
     };
 
+    formSubmitHandler = e => {
+        e.preventDefault();
+        const values = {};
+        for (let input in this.state.inputs) {
+            values[input] = this.state.inputs[input].value;
+        }
+        this.props.submit(values);
+    };
+
     validateInput = (rules, value, name) => {
         let isValid = true;
         let errorMessage = null;
@@ -62,7 +71,7 @@ class AuthForm extends Component {
         return (
             <div className={styles.Login}>
                 <h1>{this.props.heading}</h1>
-                <form onSubmit={this.props.login} noValidate>
+                <form onSubmit={this.formSubmitHandler} noValidate>
                     {Object.entries(this.state.inputs).map(([name, input]) => (
                         <Input key={name} {...input} change={e => this.changeHandler(e, name)}/>
                     ))}

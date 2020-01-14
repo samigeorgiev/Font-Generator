@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import AuthForm from 'components/AuthForm';
+import Logo from 'components/Logo';
 
 import styles from './index.module.css';
 
@@ -10,6 +11,7 @@ import PasswordImage from 'assets/images/Password.png';
 
 class Auth extends Component {
     state = {
+        loading: false,
         showLogin: 'Login'
     };
 
@@ -18,6 +20,18 @@ class Auth extends Component {
             return {
                 showLogin: !prevState.showLogin
             };
+        })
+    };
+
+    authHandler = values => {
+        fetch(process.env.REACT_APP_BASE_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(values)
+        }).then(data => {
+            console.log(data);
         })
     };
 
@@ -96,15 +110,28 @@ class Auth extends Component {
             <main className={styles.Auth}>
                 <div className={`${styles.FormContainer} ${position}`}>
                     <div className={this.state.showLogin ? styles.Shown : styles.Hide}>
-                        <AuthForm inputs={loginInputs} heading="Log in to your account" buttonContent="LOG IN" />
+                        <AuthForm inputs={loginInputs} submit={this.authHandler} heading="Log in to your account" buttonContent="LOG IN" />
                     </div>
                     <div className={this.state.showLogin ? styles.Hide : styles.Shown}>
-                        <AuthForm inputs={signupInputs} heading="Create new account" buttonContent="SIGN UP" />
+                        <AuthForm inputs={signupInputs} submit={this.authHandler} heading="Create new account" buttonContent="SIGN UP" />
                     </div>
                 </div>
-                <button onClick={this.toggleFormsHandler}>
-                    Signup
-                </button>
+                <div className={styles.LoginToggle}>
+                    <button onClick={this.toggleFormsHandler}>Log in or continue with 3rd party</button>
+                </div>
+                <div className={styles.Oauth2Login}>
+                    <h2>Login with 3rd party</h2>
+                    <button>
+                        <Logo src="Google" />
+                    </button>
+                    <button>
+                        <Logo src="Facebook" />
+                    </button>
+                    <p>OR</p>
+                    <button className={styles.SignUpButton} onClick={this.toggleFormsHandler}>
+                        Signup
+                    </button>
+                </div>
             </main>
         );
     }

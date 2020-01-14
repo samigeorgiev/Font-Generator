@@ -33,3 +33,7 @@
 .Button[disabled] {
     cursor: not-allowed;
 }
+
+.Button:focus {
+    outline: none;
+}

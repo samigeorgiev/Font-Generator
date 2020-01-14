@@ -1,6 +1,9 @@
 .Auth {
     align-self: center;
     justify-self: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 49rem;
     height: 20rem;
     position: relative;
@@ -38,4 +41,64 @@
 
 .Hide {
     display: none;
+}
+
+.LoginToggle {
+    height: 90%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.LoginToggle > button {
+    width: 70%;
+    font: inherit;
+}
+
+.Oauth2Login {
+    height: 90%;
+    width: 45%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.Oauth2Login > h2 {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    font: inherit;
+    color: #eee;
+}
+
+.Oauth2Login > button {
+    font: inherit;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.Oauth2Login > button:focus {
+    outline: none;
+}
+
+.Oauth2Login > p {
+    width: 100%;
+    margin: 0 0 1rem 0;
+    text-align: center;
+    display: block;
+}
+
+.Oauth2Login > button.SignUpButton {
+    padding: .5rem 1rem;
+    background: #eee;
+}
+
+.Oauth2Login > button.SignUpButton:hover {
+    background: #ccc;
 }
