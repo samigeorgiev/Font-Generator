@@ -7,7 +7,7 @@ import jwt
 
 app = Flask(__name__)
 
-@app.route('/register', methods=['POST'])
+@app.route('/api/register', methods=['POST'])
 def register():
     username = request.form['username']
     password = request.form['password']
@@ -25,12 +25,12 @@ def register():
         return jsonify({"success":True}), 200
     return jsonify({"success":False, "error_message":"internal server error"}), 500
 
-@app.route('/user_exists', methods=['GET'])
+@app.route('/api/user_exists', methods=['GET'])
 def user_exists():
     username = request.form['username']
     return {"success":True, "status":200, "response":db.username_exists(username)}
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     username = request.form['username']
     password = request.form['password']
@@ -55,7 +55,7 @@ def decode_jwt(jwt):
     payload = jwt.decode(jwt.encode('utf-8'), jwt_secret)
     return payload['sub']
 
-@app.route('/favourites/<uid>')
+@app.route('/api/favourites/<uid>')
 def favourites(uid):
     # TODO
     return db.get_favourites(uid)
