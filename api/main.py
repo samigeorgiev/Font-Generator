@@ -1,11 +1,8 @@
 from flask import Flask
-from flask import request, redirect
-from flask_httpauth import HTTPBasicAuth
+from flask import request, redirect, jsonify
 import database as db
 
 app = Flask(__name__)
-
-auth = HTTPBasicAuth()
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -14,21 +11,21 @@ def register():
     print("REGISTER ATTEMPT!")
     print(username)
     if (db.username_exists(username)):
-        return {"success":False, "status":409, "error_message":"username already taken"}
+        return jsonify({"success":False, "error_message":"username already taken"}), 409
     if (len(password) < 8):
-        return {"success":False, "status":400, "error_message":"password too short"}
+        return jsonify({"success":False, "error_message":"password too short"}), 400
     if (len(password) > 64):
-        return {"success":False, "status":400, "error_message":"password too long"}
+        return jsonify({"success":False, "error_message":"password too long"}), 400
     success = db.add_new_user(username, password)
     if success:
         print("REGISTERED NEW USER!")
-        return {"success": True, "status":200}
-    return {"success":False, "status":500, "error_message":"internal server error"}
+        return jsonify({"success": True), 200
+    return jsonify({"success":False, "error_message":"internal server error"}), 500
 
 @app.route('/login', methods=['POST'])
 def login():
     # TODO
-    return {"success": True, "status":200}
+    return jsonify({"success": True}), 200
 
 @app.route('/favourites/<uid>')
 def favourites(uid):
