@@ -18,8 +18,11 @@ class AuthForm extends Component {
     changeHandler = (e, inputName) => {
         const [isValid, errorMessage] =
             this.validateInput(this.state.inputs[inputName].validation, e.target.value, inputName);
-        let isFormValid = true;
-        Object.values(this.state.inputs).forEach(input => isFormValid = input.isValid && isFormValid);
+        let isFormValid = isValid;
+        Object.entries(this.state.inputs).forEach(([inputKey, inputValue]) => (
+            inputKey !== inputName ? isFormValid = inputValue.isValid && isFormValid : null
+        ));
+        console.log(this.state.inputs, isFormValid);
         this.setState({
             ...this.state,
             isFormValid: isFormValid,
