@@ -54,7 +54,12 @@
 
 .LoginToggle > button {
     width: 70%;
+    padding: .5rem;
     font: inherit;
+    border: none;
+    background: #eee;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .Oauth2Login {
@@ -99,6 +104,7 @@
     background: #eee;
 }
 
+.LoginToggle > button:hover,
 .Oauth2Login > button.SignUpButton:hover {
     background: #ccc;
 }
