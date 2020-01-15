@@ -22,7 +22,6 @@ class AuthForm extends Component {
         Object.entries(this.state.inputs).forEach(([inputKey, inputValue]) => (
             inputKey !== inputName ? isFormValid = inputValue.isValid && isFormValid : null
         ));
-        console.log(this.state.inputs, isFormValid);
         this.setState({
             ...this.state,
             isFormValid: isFormValid,
