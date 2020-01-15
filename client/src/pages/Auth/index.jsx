@@ -13,7 +13,9 @@ import PasswordImage from 'assets/images/Password.png';
 class Auth extends Component {
     state = {
         loading: false,
-        showLogin: 'Login'
+        showLogin: 'Login',
+        authMessage: null,
+        messageColor: null
     };
 
     toggleFormsHandler = () => {
@@ -24,18 +26,28 @@ class Auth extends Component {
         })
     };
 
-    authHandler = values => {
-        this.setState({ loading: true});
+    authHandler = async values => {
+        this.setState({ loading: true });
         const path = this.state.showLogin ? process.env.REACT_APP_LOGIN_PATH : process.env.REACT_APP_SIGNUP_PATH;
-        console.log(process.env);
-        fetch(process.env.REACT_APP_BASE_URL + path, {
+        const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(values)
-        }).then(data => {
-            console.log(data);
+        };
+        let response;
+        try {
+            response = await fetch(process.env.REACT_APP_BASE_URL + path, options);
+        } catch (err) {
+            console.log(err);
+        }
+        console.log(response);
+        this.setState({
+            loading: false,
+            showLogin: true,
+            authMessage: 'Account created successfully',
+            messageColor: 'green'
         })
     };
 
@@ -116,10 +128,10 @@ class Auth extends Component {
                 <>
                     <div className={`${styles.FormContainer} ${position}`}>
                         <div className={this.state.showLogin ? styles.Shown : styles.Hide}>
-                            <AuthForm inputs={loginInputs} submit={this.authHandler} heading="Log in to your account" buttonContent="LOG IN" />
+                            <AuthForm inputs={loginInputs} submit={this.authHandler} heading="Log in to your account" message={this.state.authMessage} messageColor={this.state.messageColor} buttonContent="LOG IN" />
                         </div>
                         <div className={this.state.showLogin ? styles.Hide : styles.Shown}>
-                            <AuthForm inputs={signupInputs} submit={this.authHandler} heading="Create new account" buttonContent="SIGN UP" />
+                            <AuthForm inputs={signupInputs} submit={this.authHandler} heading="Create new account" message={this.state.authMessage} messageColor={this.state.messageColor} buttonContent="SIGN UP" />
                         </div>
                     </div>
                     <div className={styles.LoginToggle}>

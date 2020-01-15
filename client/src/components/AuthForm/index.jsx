@@ -72,6 +72,7 @@ class AuthForm extends Component {
     render() {
         return (
             <div className={styles.Login}>
+                {this.props.message ? <p style={{color: this.props.messageColor}}>{this.props.message}</p> : null}
                 <h1>{this.props.heading}</h1>
                 <form onSubmit={this.formSubmitHandler} noValidate>
                     {Object.entries(this.state.inputs).map(([name, input]) => (

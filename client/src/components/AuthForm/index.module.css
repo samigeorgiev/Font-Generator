@@ -6,6 +6,11 @@
     height: 100%;
 }
 
+.Login > p {
+    margin: 0;
+    font-style: italic;
+}
+
 .Login > h1 {
     margin: 0;
     font-size: 1.5rem;
