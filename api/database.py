@@ -27,10 +27,7 @@ def username_exists(username):
     cursor = conn.cursor()
     cursor.execute(query, (username,))
     result = cursor.fetchone()
-    if result:
-        return True
-    else:
-        return False
+    return bool(result)
 
 def hash_password(password):
     return hashlib.sha256(password.encode('utf-8')).hexdigest()
@@ -51,9 +48,17 @@ def get_favourites(uid):
     return {"bs":True}
 
 def check_credentials(username, password):
-    #TODO
-    return True
+    query = """SELECT username FROM users WHERE username = ? AND password = ?"""
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute(query, (username,hash_password(password)))
+    result = cursor.fetchone()
+    return bool(result)
 
 def get_uid(username):
-    #TODO
-    return 1
+    query = """SELECT uid FROM users WHERE username = ?"""
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute(query, (username,))
+    result = cursor.fetchone()
+    return result[0]
