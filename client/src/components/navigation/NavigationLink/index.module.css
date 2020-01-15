@@ -19,7 +19,7 @@
 @media (min-width: 50rem) {
     .NavigationLink a {
         margin: 0;
-        padding: 1.5em 0;
+        padding: 1.5rem 0;
         color: #aaa;
         border-top: 4px solid transparent;
     }

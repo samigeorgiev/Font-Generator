@@ -12,7 +12,7 @@ import styles from './index.module.css';
 class Layout extends Component {
     state = {
         isSideDrawerOpen: false
-    }
+    };
 
     sideDrawerHandler = () => {
         this.setState(prevState => {
@@ -20,7 +20,7 @@ class Layout extends Component {
                isSideDrawerOpen: !prevState.isSideDrawerOpen
            };
         });
-    }
+    };
 
     render() {
         const links = [

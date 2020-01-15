@@ -27,7 +27,7 @@
     align-self: end;
     width: 100%;
     text-align: center;
-    font-size: .75em;
+    font-size: .75rem;
 }
 
 .FGLogo {
@@ -41,6 +41,6 @@
 
 @media (min-width: 50rem) {
     .Layout {
-        grid-template-rows: 6.5em auto 2.5em;
+        grid-template-rows: 6.5rem auto 2.5rem;
     }
 }
