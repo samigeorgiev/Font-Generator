@@ -51,8 +51,8 @@ def encode_jwt(uid):
         algorithm='HS256'
     ).decode('utf-8')
 
-def decode_jwt(jwt):
-    payload = jwt.decode(jwt.encode('utf-8'), jwt_secret)
+def decode_jwt(token):
+    payload = jwt.decode(token.encode('utf-8'), jwt_secret)
     return payload['sub']
 
 @app.route('/api/favourites/<uid>')
