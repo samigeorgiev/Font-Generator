@@ -128,25 +128,45 @@ class Auth extends Component {
                 <>
                     <div className={`${styles.FormContainer} ${position}`}>
                         <div className={this.state.showLogin ? styles.Shown : styles.Hide}>
-                            <AuthForm inputs={loginInputs} submit={this.authHandler} heading="Log in to your account" message={this.state.authMessage} messageColor={this.state.messageColor} buttonContent="LOG IN" />
+                            <AuthForm
+                                inputs={loginInputs}
+                                submit={this.authHandler}
+                                heading="Log in to your account"
+                                message={this.state.authMessage}
+                                messageColor={this.state.messageColor}
+                                buttonContent="LOG IN"
+                                switch={this.toggleFormsHandler}
+                                switchContent="Signup"
+                            />
                         </div>
                         <div className={this.state.showLogin ? styles.Hide : styles.Shown}>
-                            <AuthForm inputs={signupInputs} submit={this.authHandler} heading="Create new account" message={this.state.authMessage} messageColor={this.state.messageColor} buttonContent="SIGN UP" />
+                            <AuthForm
+                                inputs={signupInputs}
+                                submit={this.authHandler}
+                                heading="Create new account"
+                                message={this.state.authMessage}
+                                messageColor={this.state.messageColor}
+                                buttonContent="SIGN UP"
+                                switch={this.toggleFormsHandler}
+                                switchContent="Login"
+                            />
                         </div>
                     </div>
                     <div className={styles.LoginToggle}>
-                        <button onClick={this.toggleFormsHandler}>Log in or continue with social account</button>
+                        <button onClick={this.toggleFormsHandler} className={styles.ToggleButton}>
+                            Log in or continue with social account
+                        </button>
                     </div>
                     <div className={styles.Oauth2Login}>
                         <h2>Login with social account</h2>
-                        <button>
+                        <button className={styles.Oauth2LoginButton}>
                             <Logo src="Google" />
                         </button>
-                        <button>
+                        <button className={styles.Oauth2LoginButton}>
                             <Logo src="Facebook" />
                         </button>
-                        <p>OR</p>
-                        <button className={styles.SignUpButton} onClick={this.toggleFormsHandler}>
+                        <p className={styles.Oauth2LoginORLabel}>OR</p>
+                        <button className={styles.ToggleButton} onClick={this.toggleFormsHandler}>
                             Signup
                         </button>
                     </div>
