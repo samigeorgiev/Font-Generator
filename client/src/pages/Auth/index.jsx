@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { withRouter } from 'react-router-dom';
+
 import AuthForm from 'components/AuthForm';
 import Logo from 'components/Logo';
 import Spinner from 'components/Spinner';
@@ -21,7 +23,8 @@ class Auth extends Component {
     toggleFormsHandler = () => {
         this.setState(prevState => {
             return {
-                showLogin: !prevState.showLogin
+                showLogin: !prevState.showLogin,
+                authMessage: null
             };
         })
     };
@@ -36,18 +39,55 @@ class Auth extends Component {
             },
             body: JSON.stringify(values)
         };
-        let response;
+        let response, data;
         try {
-            response = await fetch(process.env.REACT_APP_BASE_URL + path, options);
+            // response = await fetch(process.env.REACT_APP_BASE_URL + path, options);
+            // data = await response.json();
+            response = { status: 200 };
+            data = { userId: 1234, token: 1234 };
         } catch (err) {
-            console.log(err);
+            return this.setState({
+                loading: false,
+                authMessage: 'Network error',
+                messageColor: 'red'
+            });
         }
-        console.log(response);
+        let authMessage, messageColor, showLogin = true;
+        switch (response.status) {
+            case 201:
+                if (!this.state.showLogin) {
+                    authMessage = 'Account created successfully';
+                    messageColor = 'green';
+                }
+                break;
+            case 200:
+                if (this.state.showLogin) {
+                    this.props.login(data.userId, data.token);
+                    this.props.history.push('/');
+                }
+                break;
+            case 401:
+                if (this.state.showLogin) {
+                    authMessage = 'Invalid credentials';
+                    messageColor = 'red';
+                }
+                break;
+            case 422:
+                if (!this.state.showLogin) {
+                    authMessage = 'Invalid data';
+                    messageColor = 'red';
+                    showLogin = false;
+                }
+                break;
+            default:
+                authMessage = 'Error has happened';
+                messageColor = 'red';
+        }
         this.setState({
             loading: false,
-            showLogin: true,
-            authMessage: 'Account created successfully',
-            messageColor: 'green'
+            showLogin: showLogin,
+            authMessage: authMessage,
+            messageColor: messageColor
         })
     };
 
@@ -182,4 +222,4 @@ class Auth extends Component {
     }
 }
 
-export default Auth;
+export default withRouter(Auth);

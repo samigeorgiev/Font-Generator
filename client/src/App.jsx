@@ -11,6 +11,15 @@ class App extends Component {
         user: null
     };
 
+    loginHandler = (userId, token) => {
+        this.setState({
+            user: {
+                id: userId,
+                token: token
+            }
+        });
+    };
+
     render() {
         return (
             <Layout isAuth={Boolean(this.state.user)}>
@@ -20,7 +29,7 @@ class App extends Component {
                     </Route>
                     {!this.state.user
                         ? <Route path="/auth">
-                            <Auth />
+                            <Auth login={this.loginHandler} />
                         </Route>
                         : null}
                 </Switch>
