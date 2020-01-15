@@ -27,6 +27,7 @@ class Auth extends Component {
     authHandler = values => {
         this.setState({ loading: true});
         const path = this.state.showLogin ? process.env.REACT_APP_LOGIN_PATH : process.env.REACT_APP_SIGNUP_PATH;
+        console.log(process.env);
         fetch(process.env.REACT_APP_BASE_URL + path, {
             method: 'POST',
             headers: {
