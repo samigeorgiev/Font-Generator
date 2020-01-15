@@ -2,7 +2,13 @@
 .DS_Store
 
 /.idea
+
+# Vim temp files
 *.swp
+
+# Python temp files
 __pycache__
+
+# API
 api/secrets.py
 api/*.sqlite3
