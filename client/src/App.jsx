@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import Auth from 'pages/Auth';
 import Home from 'pages/Home';
 import Layout from 'components/Layout';
+import NewFont from 'pages/NewFont';
 
 class App extends Component {
     state = {
@@ -52,7 +53,7 @@ class App extends Component {
                         <Home />
                     </Route>
                     <Route path="/new-font" exact>
-                        <Home />
+                        <NewFont />
                     </Route>
                     {!this.state.user
                         ? <Route path="/auth">
