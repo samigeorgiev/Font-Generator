@@ -21,16 +21,17 @@ CREATE TABLE IF NOT EXISTS `favourites` (
 )''')
 conn.commit()
 
-def username_exists(username):
-    query = """SELECT username FROM users WHERE username = ?"""
+def sql_select1(query, params):
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
-    cursor.execute(query, (username,))
+    cursor.execute(query, params)
     result = cursor.fetchone()
-    if result:
-        return True
-    else:
-        return False
+    return result
+
+def username_exists(username):
+    query = """SELECT username FROM users WHERE username = ?"""
+    result = sql_select1(query, (username,))
+    return bool(result)
 
 def hash_password(password):
     return hashlib.sha256(password.encode('utf-8')).hexdigest()
@@ -50,3 +51,12 @@ def get_favourites(uid):
     pass #TODO
     return {"bs":True}
 
+def check_credentials(username, password):
+    query = """SELECT username FROM users WHERE username = ? AND password = ?"""
+    result = sql_select1(query, (username,hash_password(password)))
+    return bool(result)
+
+def get_uid(username):
+    query = """SELECT uid FROM users WHERE username = ?"""
+    result = sql_select1(query, (username,))
+    return result[0]

@@ -1,37 +1,63 @@
+from secrets import jwt_secret
 from flask import Flask
-from flask import request, redirect
-from flask_httpauth import HTTPBasicAuth
+from flask import request, redirect, jsonify
 import database as db
+import datetime
+import jwt
 
 app = Flask(__name__)
 
-auth = HTTPBasicAuth()
-
-@app.route('/register', methods=['POST'])
+@app.route('/api/register', methods=['POST'])
 def register():
     username = request.form['username']
     password = request.form['password']
     print("REGISTER ATTEMPT!")
     print(username)
     if (db.username_exists(username)):
-        return {"success":False, "error":"username already taken"}
+        return jsonify({"success":False, "error_message":"username already taken"}), 409
     if (len(password) < 8):
-        return {"success":False, "error":"password too short"}
+        return jsonify({"success":False, "error_message":"password too short"}), 400
     if (len(password) > 64):
-        return {"success":False, "error":"password too long"}
+        return jsonify({"success":False, "error_message":"password too long"}), 400
     success = db.add_new_user(username, password)
     if success:
         print("REGISTERED NEW USER!")
-        return {"success": True}
-    return {"success":False, "error":"internal server error"}
+        return jsonify({"success":True}), 200
+    return jsonify({"success":False, "error_message":"internal server error"}), 500
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/user_exists', methods=['GET'])
+def user_exists():
+    username = request.form['username']
+    return {"success":True, "status":200, "response":db.username_exists(username)}
+
+@app.route('/api/login', methods=['POST'])
 def login():
-    # TODO
-    return {"success": True}
+    username = request.form['username']
+    password = request.form['password']
+    if (not db.check_credentials(username, password)):
+        return jsonify({"success":False, "error_message":"username or password not correct"}), 401
+    token = encode_jwt(db.get_uid(username))
+    return jsonify({"success": True, "token":token}), 200
 
-@app.route('/favourites/<uid>')
+def encode_jwt(uid):
+    payload = {
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
+        'iat': datetime.datetime.utcnow(),
+        'sub': uid
+    }
+    return jwt.encode(
+        payload,
+        jwt_secret,
+        algorithm='HS256'
+    ).decode('utf-8')
+
+def decode_jwt(token):
+    payload = jwt.decode(token.encode('utf-8'), jwt_secret)
+    return payload['sub']
+
+@app.route('/api/favourites/<uid>')
 def favourites(uid):
+    # TODO
     return db.get_favourites(uid)
 
 if __name__ == '__main__':
