@@ -1,0 +1,4 @@
+# API
+secrets.py
+*.sqlite3
+

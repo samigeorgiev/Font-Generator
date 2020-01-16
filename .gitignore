@@ -8,7 +8,3 @@
 
 # Python temp files
 __pycache__
-
-# API
-api/secrets.py
-api/*.sqlite3
