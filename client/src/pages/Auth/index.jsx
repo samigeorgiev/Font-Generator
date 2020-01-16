@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import AuthForm from 'components/AuthForm';
-import OAuth2Buttons from "components/OAuth2Buttons";
+import OAuth2Buttons from 'components/OAuth2Buttons';
 import Spinner from 'components/Spinner';
 
 import styles from './index.module.css';
