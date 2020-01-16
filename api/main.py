@@ -14,16 +14,20 @@ CORS(app)
 def register():
     print("REGISTER ATTEMPT!")
     data = json.loads(request.data)
-    username = data['email']
+    email = data['email']
+    username = data['name']
     password = data['password']
     print(username)
+    print(email)
+    if (db.email_exists(email)):
+        return jsonify({"success":False, "error_message":"email already registered"}), 409
     if (db.username_exists(username)):
         return jsonify({"success":False, "error_message":"username already taken"}), 409
     if (len(password) < 8):
         return jsonify({"success":False, "error_message":"password too short"}), 400
     if (len(password) > 64):
         return jsonify({"success":False, "error_message":"password too long"}), 400
-    success = db.add_new_user(username, password)
+    success = db.add_new_user(email, username, password)
     if success:
         print("REGISTERED NEW USER!")
         return jsonify({"success":True}), 201
@@ -32,17 +36,17 @@ def register():
 @app.route('/api/user_exists', methods=['GET'])
 def user_exists():
     data = json.loads(request.data)
-    username = data['email']
-    return {"success":True, "status":200, "response":db.username_exists(username)}
+    email = data['email']
+    return jsonify({"success":True, "response":db.email_exists(email)}), 200
 
 @app.route('/api/login', methods=['POST'])
 def login():
     data = json.loads(request.data)
-    username = data['email']
+    email = data['email']
     password = data['password']
-    if (not db.check_credentials(username, password)):
-        return jsonify({"success":False, "error_message":"username or password not correct"}), 401
-    return encode_jwt(db.get_uid(username))
+    if (not db.check_credentials(email, password)):
+        return jsonify({"success":False, "error_message":"email or password not correct"}), 401
+    return encode_jwt(db.get_uid(email))
 
 def encode_jwt(uid):
     payload = {

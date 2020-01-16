@@ -8,6 +8,7 @@ conn = sqlite3.connect(DB_NAME)
 conn.cursor().execute('''
 CREATE TABLE IF NOT EXISTS `users` (
     `uid` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `email` TEXT NOT NULL UNIQUE,
     `username` TEXT NOT NULL UNIQUE,
     `password` TEXT NOT NULL
 )''')
@@ -28,6 +29,11 @@ def sql_select1(query, params):
     result = cursor.fetchone()
     return result
 
+def email_exists(email):
+    query = """SELECT email FROM users WHERE email = ?"""
+    result = sql_select1(query, (email,))
+    return bool(result)
+
 def username_exists(username):
     query = """SELECT username FROM users WHERE username = ?"""
     result = sql_select1(query, (username,))
@@ -36,12 +42,12 @@ def username_exists(username):
 def hash_password(password):
     return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
-def add_new_user(username, password):
+def add_new_user(email, username, password):
     try:
-        query = """INSERT INTO users (username, password) VALUES (?,?)"""
+        query = """INSERT INTO users (email, username, password) VALUES (?,?,?)"""
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
-        cursor.execute(query, (username,hash_password(password)))
+        cursor.execute(query, (email, username,hash_password(password)))
         conn.commit()
         return True
     except:
@@ -51,12 +57,12 @@ def get_favourites(uid):
     pass #TODO
     return {"bs":True}
 
-def check_credentials(username, password):
-    query = """SELECT username FROM users WHERE username = ? AND password = ?"""
-    result = sql_select1(query, (username,hash_password(password)))
+def check_credentials(email, password):
+    query = """SELECT email FROM users WHERE email = ? AND password = ?"""
+    result = sql_select1(query, (email,hash_password(password)))
     return bool(result)
 
-def get_uid(username):
-    query = """SELECT uid FROM users WHERE username = ?"""
-    result = sql_select1(query, (username,))
+def get_uid(email):
+    query = """SELECT uid FROM users WHERE email = ?"""
+    result = sql_select1(query, (email,))
     return result[0]
