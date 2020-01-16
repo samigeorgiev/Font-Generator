@@ -83,7 +83,7 @@ class AuthForm extends Component {
                     </button>
                 </form>
                 <button className={`${styles.Button} ${styles.SwitchButton}`} onClick={this.props.switch}>
-                    {this.props.switchContent}
+                    {'Switch to ' + this.props.switchContent}
                 </button>
             </div>
         )

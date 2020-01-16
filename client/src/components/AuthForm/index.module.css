@@ -43,6 +43,18 @@
     outline: none;
 }
 
+.SwitchButton {
+    color: white;
+    background: #555;
+    font-style: italic;
+    font-size: 1.25rem;
+}
+
+.SwitchButton:hover {
+    color: black;
+    background: #888;
+}
+
 @media (min-width: 50rem) {
     .SwitchButton {
         display: none;
