@@ -30,6 +30,10 @@
     font-size: .75rem;
 }
 
+.Layout > footer a {
+    color: inherit;
+}
+
 .FGLogo {
     align-self: flex-start;
     height: 100%;

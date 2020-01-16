@@ -51,7 +51,9 @@ class Layout extends Component {
                 </header>
                 {this.props.children}
                 <footer>
-                    <p>&copy; 2019 - {new Date().getFullYear()} All rights reserved | Sami</p>
+                    <p>
+                        &copy; 2019 - {new Date().getFullYear()} All rights reserved | <a href="https://github.com/samigeorgiev/Font-Generator">GitHub</a>
+                    </p>
                 </footer>
             </div>
         );
