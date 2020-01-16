@@ -20,9 +20,16 @@ class App extends Component {
         });
     };
 
+    logoutHandler = () => {
+
+    };
+
     render() {
         return (
-            <Layout isAuth={Boolean(this.state.user)}>
+            <Layout
+                isAuth={Boolean(this.state.user)}
+                logout={this.state.user ? this.logoutHandler : null}
+            >
                 <Switch>
                     <Route path="/" exact>
                         <Home />

@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import DrawerToggle from 'components/navigation/SideDrawer/DrawerToggle';
-import Logo from 'components/Logo';
 import SideDrawer from 'components/navigation/SideDrawer';
 import Toolbar from 'components/navigation/Toolbar';
 
 import styles from './index.module.css';
+
+import FGLogo from 'assets/images/FGLogo.png';
+import Logout from 'assets/images/Logout.png';
 
 class Layout extends Component {
     state = {
@@ -39,12 +41,14 @@ class Layout extends Component {
                 <header>
                     <DrawerToggle click={this.sideDrawerHandler} />
                     <div className={styles.FGLogo}>
-                        <NavLink to="/" exact><Logo src="FGLogo" brightness="5" /></NavLink>
+                        <NavLink to="/" exact><img src={FGLogo} alt="FG Logo"/></NavLink>
                     </div>
                     <SideDrawer isShown={this.state.isSideDrawerOpen} links={links} close={this.sideDrawerHandler} />
                     <Toolbar links={links} />
-                    <div className={styles.GitHubLogo}>
-                        <a href="https://github.com/samigeorgiev/Font-Generator"><Logo src="GitHubLogo" brightness="5" /></a>
+                    <div className={styles.Logout}>
+                        <button>
+                            {this.props.logout ? <img src={Logout} alt="Logout" /> : null}
+                        </button>
                     </div>
                 </header>
                 {this.props.children}

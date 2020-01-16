@@ -31,12 +31,47 @@
 }
 
 .FGLogo {
-    height: 75%;
+    align-self: flex-start;
+    height: 80%;
 }
 
-.GitHubLogo {
-    height: 50%;
-    padding: 1.5rem;
+.FGLogo a {
+    display: block;
+    height: 100%;
+}
+
+.FGLogo img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    filter: brightness(5);
+}
+
+.Logout {
+    align-self: flex-start;
+    box-sizing: border-box;
+    height: 60%;
+}
+
+.Logout > button {
+    height: 100%;
+    width: 5rem;
+    padding-top: 1.75rem;
+    background: transparent;
+    box-sizing: border-box;
+    border: none;
+}
+
+.Logout img {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 100%;
+    filter: brightness(2);
+    cursor: pointer;
+}
+
+.Logout > button:focus {
+    outline: none;
 }
 
 @media (min-width: 50rem) {
