@@ -29,7 +29,7 @@ class Auth extends Component {
         })
     };
 
-    authHandler = async values => {
+    authHandler = async credentials => {
         this.setState({ loading: true });
         const path = this.state.showLogin ? process.env.REACT_APP_LOGIN_PATH : process.env.REACT_APP_SIGNUP_PATH;
         const options = {
@@ -37,14 +37,12 @@ class Auth extends Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(values)
+            body: JSON.stringify(credentials)
         };
         let response, data;
         try {
             response = await fetch(process.env.REACT_APP_BASE_URL + path, options);
             data = await response.json();
-            // response = { status: 200 };
-            // data = { userId: 1234, token: 1234 };
         } catch (err) {
             return this.setState({
                 loading: false,
