@@ -42,8 +42,7 @@ def login():
     password = data['password']
     if (not db.check_credentials(username, password)):
         return jsonify({"success":False, "error_message":"username or password not correct"}), 401
-    token = encode_jwt(db.get_uid(username))
-    return jsonify({"success": True, "token":token}), 200
+    return encode_jwt(db.get_uid(username))
 
 def encode_jwt(uid):
     payload = {
@@ -51,11 +50,15 @@ def encode_jwt(uid):
         'iat': datetime.datetime.utcnow(),
         'sub': uid
     }
-    return jwt.encode(
-        payload,
-        jwt_secret,
-        algorithm='HS256'
-    ).decode('utf-8')
+    return jsonify({
+        "success": True,
+        "exp":payload["exp"],
+        "token":jwt.encode(
+            payload,
+            jwt_secret,
+            algorithm='HS256'
+        ).decode('utf-8')
+    }), 200
 
 def decode_jwt(token):
     payload = jwt.decode(token.encode('utf-8'), jwt_secret)
