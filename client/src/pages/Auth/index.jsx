@@ -41,10 +41,10 @@ class Auth extends Component {
         };
         let response, data;
         try {
-            // response = await fetch(process.env.REACT_APP_BASE_URL + path, options);
-            // data = await response.json();
-            response = { status: 200 };
-            data = { userId: 1234, token: 1234 };
+            response = await fetch(process.env.REACT_APP_BASE_URL + path, options);
+            data = await response.json();
+            // response = { status: 200 };
+            // data = { userId: 1234, token: 1234 };
         } catch (err) {
             return this.setState({
                 loading: false,

@@ -1,17 +1,22 @@
 from secrets import jwt_secret
 from flask import Flask
 from flask import request, redirect, jsonify
+from flask_cors import CORS
 import database as db
 import datetime
 import jwt
+import json
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/api/register', methods=['POST'])
 def register():
-    username = request.form['username']
-    password = request.form['password']
     print("REGISTER ATTEMPT!")
+    data = json.loads(data)
+    print(list(args.keys()))
+    username = data['email']
+    password = data['password']
     print(username)
     if (db.username_exists(username)):
         return jsonify({"success":False, "error_message":"username already taken"}), 409
@@ -27,13 +32,15 @@ def register():
 
 @app.route('/api/user_exists', methods=['GET'])
 def user_exists():
-    username = request.form['username']
+    data = json.loads(request.data)
+    username = data['email']
     return {"success":True, "status":200, "response":db.username_exists(username)}
 
 @app.route('/api/login', methods=['POST'])
 def login():
-    username = request.form['username']
-    password = request.form['password']
+    data = json.loads(request.data)
+    username = data['email']
+    password = data['password']
     if (not db.check_credentials(username, password)):
         return jsonify({"success":False, "error_message":"username or password not correct"}), 401
     token = encode_jwt(db.get_uid(username))
