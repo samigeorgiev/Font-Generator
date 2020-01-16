@@ -24,7 +24,7 @@ const input = props => {
                 value={props.value}
                 onChange={props.change}
                 style={{
-                    background: `url(${props.background}) no-repeat 0.25rem 0.45rem`
+                    backgroundImage: `url(${props.background})`
                 }}
             />
             {validationError}

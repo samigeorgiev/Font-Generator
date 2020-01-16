@@ -8,9 +8,9 @@ import Spinner from 'components/Spinner';
 
 import styles from './index.module.css';
 
-import EmailImage from 'assets/images/Email.png';
-import NameImage from 'assets/images/Name.png';
-import PasswordImage from 'assets/images/Password.png';
+import EmailImage from 'assets/images/Email.svg';
+import NameImage from 'assets/images/Name.svg';
+import PasswordImage from 'assets/images/Password.svg';
 
 class Auth extends Component {
     state = {
