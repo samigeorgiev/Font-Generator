@@ -45,6 +45,7 @@ class AuthForm extends Component {
             values[input] = this.state.inputs[input].value;
         }
         this.props.submit(values);
+        e.stopPropagation();
     };
 
     validateInput = (rules, value, name) => {

@@ -1,0 +1,58 @@
+.OAuth2Panel {
+    height: 80%;
+    width: 48%;
+    font-size: 1rem;
+}
+
+.OAuth2Panel > h2 {
+    text-align: center;
+}
+
+.Button {
+    padding: 0;
+    font: inherit;
+    background: transparent;
+    border: none;
+}
+
+.Button:focus {
+    outline: none;
+}
+
+.OAuth2Buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.OAuth2Button {
+    width: 25%;
+}
+
+.OAuth2Button img {
+    width: 100%;
+    cursor: pointer;
+}
+
+.ORLabel {
+    margin: .5rem 0;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 900;
+}
+
+.SwitchButton {
+    display: block;
+    width: 70%;
+    margin: 1rem auto;
+    padding: 1rem;
+    font-size: 1.25rem;
+    background: #eee;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@media (max-width: 50rem) {
+    .OAuth2Panel {
+        display: none;
+    }
+}

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import AuthForm from 'components/AuthForm';
-// import Logo from 'components/Logo';
+import OAuth2Buttons from "components/OAuth2Buttons";
 import Spinner from 'components/Spinner';
 
 import styles from './index.module.css';
@@ -51,7 +51,6 @@ class Auth extends Component {
             });
         }
         let authMessage, messageColor, showLogin = true;
-        console.log(response, data);
         switch (response.status) {
             case 201:
                 if (!this.state.showLogin) {
@@ -143,7 +142,7 @@ class Auth extends Component {
                     isRequired: true,
                     minLength: 4,
                     maxLength: 64,
-                    regex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    regex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                 }
             },
             password: {
@@ -192,24 +191,14 @@ class Auth extends Component {
                             />
                         </div>
                     </div>
-                    <div className={styles.LoginToggle}>
-                        <button onClick={this.toggleFormsHandler} className={styles.ToggleButton}>
-                            Log in or continue with social account
-                        </button>
-                    </div>
-                    <div className={styles.Oauth2Login}>
-                        <h2>Login with social account</h2>
-                        <button className={styles.Oauth2LoginButton}>
-                            {/*<Logo src="Google" />*/}
-                        </button>
-                        <button className={styles.Oauth2LoginButton}>
-                            {/*<Logo src="Facebook" />*/}
-                        </button>
-                        <p className={styles.Oauth2LoginORLabel}>OR</p>
-                        <button className={styles.ToggleButton} onClick={this.toggleFormsHandler}>
-                            Signup
-                        </button>
-                    </div>
+                    <OAuth2Buttons
+                        switch={this.toggleFormsHandler}
+                        switchButtonContent="Signup"
+                    />
+                    <OAuth2Buttons
+                        switch={this.toggleFormsHandler}
+                        switchButtonContent="Log in"
+                    />
                 </>
             );
         }

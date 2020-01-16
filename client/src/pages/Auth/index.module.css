@@ -39,52 +39,6 @@
     display: none;
 }
 
-.LoginToggle {
-    height: 90%;
-    width: 50%;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-}
-
-.Oauth2Login {
-    height: 90%;
-    width: 47%;
-    display: none;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-}
-
-.Oauth2Login > h2 {
-    width: 100%;
-    text-align: center;
-    margin: 0;
-    font: inherit;
-    color: #eee;
-}
-
-.Oauth2LoginButton {
-    font: inherit;
-    background: transparent;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.Oauth2LoginButton:focus {
-    outline: none;
-}
-
-.Oauth2LoginORLabel {
-    width: 100%;
-    margin: 0 0 1rem 0;
-    text-align: center;
-    display: block;
-}
-
 .ToggleButton {
     padding: .5rem 1rem;
     font: inherit;
@@ -119,13 +73,5 @@
     .Right {
         left: 50%;
         transition: left .75s;
-    }
-
-    .LoginToggle {
-        display: flex;
-    }
-
-    .Oauth2Login {
-        display: flex;
     }
 }
