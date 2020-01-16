@@ -7,7 +7,7 @@ class Home extends Component {
         return (
             <main className={styles.Home}>
                 <h1 className={styles.PageHeading}>Font Generator</h1>
-                <p className={styles.AppDescription}>Generate new fonts with Neural Networks</p>
+                <p className={styles.AppDescription}>Generate novel font combinations with neural networks</p>
             </main>
         );
     }
