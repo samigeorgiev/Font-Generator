@@ -24,9 +24,9 @@ def register():
     if (db.username_exists(username)):
         return jsonify({"success":False, "error_message":"username already taken"}), 409
     if (len(password) < 8):
-        return jsonify({"success":False, "error_message":"password too short"}), 400
+        return jsonify({"success":False, "error_message":"password too short"}), 422
     if (len(password) > 64):
-        return jsonify({"success":False, "error_message":"password too long"}), 400
+        return jsonify({"success":False, "error_message":"password too long"}), 422
     success = db.add_new_user(email, username, password)
     if success:
         print("REGISTERED NEW USER!")
