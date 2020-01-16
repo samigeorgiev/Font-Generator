@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import AuthForm from 'components/AuthForm';
-import Logo from 'components/Logo';
+// import Logo from 'components/Logo';
 import Spinner from 'components/Spinner';
 
 import styles from './index.module.css';
@@ -199,10 +199,10 @@ class Auth extends Component {
                     <div className={styles.Oauth2Login}>
                         <h2>Login with social account</h2>
                         <button className={styles.Oauth2LoginButton}>
-                            <Logo src="Google" />
+                            {/*<Logo src="Google" />*/}
                         </button>
                         <button className={styles.Oauth2LoginButton}>
-                            <Logo src="Facebook" />
+                            {/*<Logo src="Facebook" />*/}
                         </button>
                         <p className={styles.Oauth2LoginORLabel}>OR</p>
                         <button className={styles.ToggleButton} onClick={this.toggleFormsHandler}>
