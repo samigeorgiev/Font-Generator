@@ -51,6 +51,7 @@ class Auth extends Component {
             });
         }
         let authMessage, messageColor, showLogin = true;
+        console.log(response, data);
         switch (response.status) {
             case 201:
                 if (!this.state.showLogin) {
@@ -60,8 +61,8 @@ class Auth extends Component {
                 break;
             case 200:
                 if (this.state.showLogin) {
-                    this.props.login(data.userId, data.token);
-                    this.props.history.push('/');
+                    this.props.login(data.token);
+                    return this.props.history.push('/');
                 }
                 break;
             case 401:

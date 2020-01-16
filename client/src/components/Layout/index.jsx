@@ -46,7 +46,7 @@ class Layout extends Component {
                     <SideDrawer isShown={this.state.isSideDrawerOpen} links={links} close={this.sideDrawerHandler} />
                     <Toolbar links={links} />
                     <div className={styles.Logout}>
-                        <button>
+                        <button onClick={this.props.logout}>
                             {this.props.logout ? <img src={Logout} alt="Logout" /> : null}
                         </button>
                     </div>
