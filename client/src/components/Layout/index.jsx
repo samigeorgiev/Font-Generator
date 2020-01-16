@@ -27,7 +27,7 @@ class Layout extends Component {
     render() {
         const links = [
             { to: '/', value: 'Home' },
-            { to: '/generator', value: 'New font' }
+            { to: '/new-font', value: 'New font' }
         ];
 
         if (this.props.isAuth) {

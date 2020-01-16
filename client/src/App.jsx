@@ -51,6 +51,9 @@ class App extends Component {
                     <Route path="/" exact>
                         <Home />
                     </Route>
+                    <Route path="/new-font" exact>
+                        <Home />
+                    </Route>
                     {!this.state.user
                         ? <Route path="/auth">
                             <Auth login={this.loginHandler} />
