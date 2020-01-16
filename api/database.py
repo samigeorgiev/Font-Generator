@@ -23,11 +23,15 @@ CREATE TABLE IF NOT EXISTS `favourites` (
 conn.commit()
 
 def sql_select1(query, params):
-    conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     cursor.execute(query, params)
     result = cursor.fetchone()
     return result
+
+def sql_insert(query, params):
+    cursor = conn.cursor()
+    cursor.execute(query, params)
+    conn.commit()
 
 def email_exists(email):
     query = """SELECT email FROM users WHERE email = ?"""
@@ -43,12 +47,9 @@ def hash_password(password):
     return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
 def add_new_user(email, username, password):
+    query = """INSERT INTO users (email, username, password) VALUES (?,?,?)"""
+    sql_insert(query, (email, username,hash_password(password)))
     try:
-        query = """INSERT INTO users (email, username, password) VALUES (?,?,?)"""
-        conn = sqlite3.connect(DB_NAME)
-        cursor = conn.cursor()
-        cursor.execute(query, (email, username,hash_password(password)))
-        conn.commit()
         return True
     except:
         return False
