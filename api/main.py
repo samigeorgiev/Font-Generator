@@ -13,8 +13,7 @@ CORS(app)
 @app.route('/api/register', methods=['POST'])
 def register():
     print("REGISTER ATTEMPT!")
-    data = json.loads(data)
-    print(list(args.keys()))
+    data = json.loads(request.data)
     username = data['email']
     password = data['password']
     print(username)
@@ -27,7 +26,7 @@ def register():
     success = db.add_new_user(username, password)
     if success:
         print("REGISTERED NEW USER!")
-        return jsonify({"success":True}), 200
+        return jsonify({"success":True}), 201
     return jsonify({"success":False, "error_message":"internal server error"}), 500
 
 @app.route('/api/user_exists', methods=['GET'])
