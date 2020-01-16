@@ -8,8 +8,8 @@ import Toolbar from 'components/navigation/Toolbar';
 
 import styles from './index.module.css';
 
-import FGLogo from 'assets/images/FGLogo.png';
-import Logout from 'assets/images/Logout.png';
+import FGLogo from 'assets/images/FGLogo.svg';
+import Logout from 'assets/images/Logout.svg';
 
 class Layout extends Component {
     state = {
@@ -41,15 +41,13 @@ class Layout extends Component {
                 <header>
                     <DrawerToggle click={this.sideDrawerHandler} />
                     <div className={styles.FGLogo}>
-                        <NavLink to="/" exact><img src={FGLogo} alt="FG Logo"/></NavLink>
+                        <NavLink to="/" exact><img src={FGLogo} alt="FG Logo" /></NavLink>
                     </div>
                     <SideDrawer isShown={this.state.isSideDrawerOpen} links={links} close={this.sideDrawerHandler} />
                     <Toolbar links={links} />
-                    <div className={styles.Logout}>
-                        <button onClick={this.props.logout}>
-                            {this.props.logout ? <img src={Logout} alt="Logout" /> : null}
-                        </button>
-                    </div>
+                    <button onClick={this.props.logout} className={styles.Logout}>
+                        {this.props.logout ? <img src={Logout} alt="Logout" /> : null}
+                    </button>
                 </header>
                 {this.props.children}
                 <footer>

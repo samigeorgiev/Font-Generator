@@ -32,7 +32,7 @@
 
 .FGLogo {
     align-self: flex-start;
-    height: 80%;
+    height: 100%;
 }
 
 .FGLogo a {
@@ -42,35 +42,25 @@
 
 .FGLogo img {
     display: block;
-    height: 100%;
-    width: 100%;
-    filter: brightness(5);
+    height: 80%;
 }
 
 .Logout {
     align-self: flex-start;
-    box-sizing: border-box;
-    height: 60%;
-}
-
-.Logout > button {
-    height: 100%;
+    height: 90%;
     width: 5rem;
-    padding-top: 1.75rem;
+    padding: 0;
     background: transparent;
-    box-sizing: border-box;
     border: none;
 }
 
-.Logout img {
-    display: inline-block;
-    box-sizing: border-box;
-    height: 100%;
-    filter: brightness(2);
+.Logout > img {
+    display: block;
+    height: 40%;
     cursor: pointer;
 }
 
-.Logout > button:focus {
+.Logout:focus {
     outline: none;
 }
 
