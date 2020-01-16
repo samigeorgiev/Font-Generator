@@ -47,9 +47,9 @@ def hash_password(password):
     return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
 def add_new_user(email, username, password):
-    query = """INSERT INTO users (email, username, password) VALUES (?,?,?)"""
-    sql_insert(query, (email, username,hash_password(password)))
     try:
+        query = """INSERT INTO users (email, username, password) VALUES (?,?,?)"""
+        sql_insert(query, (email, username,hash_password(password)))
         return True
     except:
         return False
