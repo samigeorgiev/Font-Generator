@@ -76,7 +76,7 @@ class AuthForm extends Component {
                 <h1>{this.props.heading}</h1>
                 <form onSubmit={this.formSubmitHandler} noValidate>
                     {Object.entries(this.state.inputs).map(([name, input]) => (
-                        <Input key={name} {...input} change={e => this.changeHandler(e, name)}/>
+                        <Input key={name} {...input} change={e => this.changeHandler(e, name)} />
                     ))}
                     <button type="submit" className={styles.Button} disabled={!this.state.isFormValid}>
                         {this.props.buttonContent}
