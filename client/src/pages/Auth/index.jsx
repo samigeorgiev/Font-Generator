@@ -128,7 +128,7 @@ class Auth extends Component {
                 validation: {
                     isRequired: true,
                     minLength: 4,
-                    maxLength: 60
+                    maxLength: 64
                 }
             },
             email: {
@@ -142,7 +142,8 @@ class Auth extends Component {
                 validation: {
                     isRequired: true,
                     minLength: 4,
-                    maxLength: 60
+                    maxLength: 64,
+                    regex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                 }
             },
             password: {
@@ -155,8 +156,8 @@ class Auth extends Component {
                 background: PasswordImage,
                 validation: {
                     isRequired: true,
-                    minLength: 4,
-                    maxLength: 60
+                    minLength: 8,
+                    maxLength: 64
                 }
             }
         };
