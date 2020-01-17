@@ -193,11 +193,11 @@ class Auth extends Component {
                     </div>
                     <OAuth2Buttons
                         switch={this.toggleFormsHandler}
-                        switchButtonContent="Signup"
+                        switchButtonContent="Log in"
                     />
                     <OAuth2Buttons
                         switch={this.toggleFormsHandler}
-                        switchButtonContent="Log in"
+                        switchButtonContent="Signup"
                     />
                 </>
             );
