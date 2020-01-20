@@ -78,10 +78,8 @@ def decode_jwt(token):
     payload = jwt.decode(token.encode('utf-8'), jwt_secret)
     return payload['sub']
 
-@app.route('/api/favourites/<uid>')
-def favourites(uid):
-    # TODO
-    return db.get_favourites(uid)
+if jwt_secret == "[temporary]":
+    print("WARNING: Please replace the jwt secret in secrets.py to a real secret.")
 
 if __name__ == '__main__':
     today = datetime.date.today().strftime("%d%m%y")
