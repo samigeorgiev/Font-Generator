@@ -53,7 +53,7 @@ class App extends Component {
                         <Home />
                     </Route>
                     <Route path="/new-font" exact>
-                        <NewFont />
+                        <NewFont user={this.state.user} />
                     </Route>
                     {!this.state.user
                         ? <Route path="/auth">
