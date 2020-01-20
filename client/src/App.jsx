@@ -26,7 +26,6 @@ class App extends Component {
     };
 
     logoutHandler = () => {
-        console.trace();
         localStorage.removeItem('token');
         localStorage.removeItem('expDate');
         this.setState({

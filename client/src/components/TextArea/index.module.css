@@ -1,0 +1,14 @@
+.TextArea {
+    display: block;
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    color: white;
+    background: transparent;
+    border: none;
+    resize: none;
+}
+
+.TextArea:focus {
+    outline: none;
+}

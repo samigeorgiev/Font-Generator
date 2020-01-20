@@ -1,3 +1,47 @@
 .NewFont {
     justify-self: center;
+    width: 80%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.NewFont > h1 {
+    display: none;
+}
+
+.Headings {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.Headings > h2 {
+    display: block;
+}
+
+.FirstRowContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.SaveButton {
+    padding: 0;
+    font: inherit;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #999;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.SaveButton:hover {
+    color: #ccc;
+}
+
+.SaveButton:focus {
+    outline: none;
 }

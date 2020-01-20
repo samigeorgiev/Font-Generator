@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import webFontLoader from 'webfontloader';
 
 import Slider from 'components/Slider';
+import TextArea from 'components/TextArea';
 
 import styles from './index.module.css';
 
@@ -22,7 +23,8 @@ class NewFont extends Component {
             heading: null,
             body: null
         },
-        lastRequestController: null
+        lastRequestController: null,
+        message: null
     };
 
     propertyHandler = async (property, e) => { // TODO TEST
@@ -58,11 +60,29 @@ class NewFont extends Component {
         fetch(url, options).then(data => data.json()).then(fonts => {
             this.changeFonts({
                 heading: 'Amarante',
-                body: 'Amarante'
+                body: 'Open Sans'
             });
         }).catch(err => {
             console.log(err);
         });
+    };
+
+    saveHandler = async () => {
+        const url = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_SAVE_FONT_PATH;
+        const options = {
+            method: 'POST',
+            headers: {
+                'Authorization': this.props.user.token,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({ fonts: this.state.fonts })
+        };
+        try {
+            await fetch(url, options);
+            this.props.history.push('/saved');
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     changeFonts = async ({heading, body}) => {
@@ -83,7 +103,7 @@ class NewFont extends Component {
         const url = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_RECOMMEND_PATH;
         this.changeFonts({
             heading: 'Amarante',
-            body: 'Amarante'
+            body: 'Open Sans'
         });
         return;
         fetch(url, {
@@ -103,18 +123,36 @@ class NewFont extends Component {
     render() {
         return (
             <main className={styles.NewFont}>
-                {Object.entries(this.state.properties).map(([property, value]) => (
-                    <Slider
-                        key={property}
-                        min="-1"
-                        max="1"
-                        step="0.01"
-                        name={property}
-                        value={value.cur}
-                        change={e => this.propertyHandler(property, e)}
-                    />
-                ))}
-                <p style={{fontFamily: this.state.fonts.body}}>Test</p>
+                <div className={styles.Headings}>
+                    <h2>Heading font: {this.state.fonts.heading}</h2><h2>Body font: {this.state.fonts.body}</h2>
+                </div>
+                <div className={styles.FirstRowContainer}>
+                    {Object.entries(this.state.properties).map(([property, value]) => (
+                        <Slider
+                            key={property}
+                            min="-1"
+                            max="1"
+                            step="0.01"
+                            name={property}
+                            value={value.cur}
+                            change={e => this.propertyHandler(property, e)}
+                        />
+                    ))}
+                    {this.props.user
+                        ? <button className={styles.SaveButton} onClick={this.saveHandler}>
+                            SAVE
+                        </button>
+                        : null}
+                </div>
+                <TextArea font={this.state.fonts.heading} size="5rem">
+                    Heading 1
+                </TextArea>
+                <TextArea font={this.state.fonts.heading} size="3rem">
+                    Heading 2
+                </TextArea>
+                <TextArea font={this.state.fonts.body} size="1rem">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut suscipit dolor, vitae fermentum dui. Suspendisse potenti. Quisque eleifend malesuada nisi vitae molestie. Donec aliquam purus non diam elementum, ac faucibus justo fringilla. Ut lobortis porta velit vel gravida. Aliquam eget purus ac nibh euismod rutrum. Pellentesque non elit sed.
+                </TextArea>
             </main>
         );
     }
