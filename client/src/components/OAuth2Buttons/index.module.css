@@ -5,7 +5,9 @@
 }
 
 .OAuth2Panel > h2 {
+    max-width: 80%;
     text-align: center;
+    margin: 0 auto;
 }
 
 .Button {

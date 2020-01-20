@@ -21,14 +21,17 @@ CREATE TABLE IF NOT EXISTS `favourites` (
     FOREIGN KEY(`user_id`) REFERENCES `users`(`userid`)
 )''')
 conn.commit()
+conn.close()
 
 def sql_select1(query, params):
+    conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     cursor.execute(query, params)
     result = cursor.fetchone()
     return result
 
 def sql_insert(query, params):
+    conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     cursor.execute(query, params)
     conn.commit()
@@ -47,12 +50,8 @@ def hash_password(password):
     return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
 def add_new_user(email, username, password):
-    try:
-        query = """INSERT INTO users (email, username, password) VALUES (?,?,?)"""
-        sql_insert(query, (email, username,hash_password(password)))
-        return True
-    except:
-        return False
+    query = """INSERT INTO users (email, username, password) VALUES (?,?,?)"""
+    sql_insert(query, (email, username,hash_password(password)))
 
 def get_favourites(uid):
     pass #TODO

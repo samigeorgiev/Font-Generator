@@ -1,4 +1,5 @@
-# API
+__pycache__
 secrets.py
 *.sqlite3
+*.log
 
