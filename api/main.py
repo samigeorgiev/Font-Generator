@@ -33,8 +33,8 @@ def register():
             app.logger.debug("Registration for '%s' failed - password too long" % username)
             return jsonify({"success":False, "error_message":"password too long"}), 422
             db.add_new_user(email, username, password)
-            app.logger.info("Registered new user ('%s', '%s')" % (username, email))
-            return jsonify({"success":True}), 201
+        app.logger.info("Registered new user ('%s', '%s')" % (username, email))
+        return jsonify({"success":True}), 201
     except Exception as e:
         app.logger.error("Error while processing registration ('%s', '%s')\n%s" % (username, email, e))
         return jsonify({"success":False, "error_message":"internal server error"}), 500
