@@ -54,11 +54,11 @@ class NewFont extends Component {
             signal
         };
         console.log(options);
-        return;
+        // return;
         fetch(url, options).then(data => data.json()).then(fonts => {
             this.changeFonts({
-                heading: 'Amarante',
-                body: 'Amarante'
+                heading: fonts.heading,
+                body: fonts.body
             });
         }).catch(err => {
             console.log(err);

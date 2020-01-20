@@ -1,13 +1,13 @@
-from secrets import jwt_secret
-from flask import Flask
-from flask import request, redirect, jsonify
-from flask_cors import CORS
+import datetime
+import json
 import logging
 from logging.handlers import RotatingFileHandler
+from secrets import jwt_secret
+
 import database as db
-import datetime
 import jwt
-import json
+from flask import Flask, jsonify, redirect, request
+from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
@@ -80,6 +80,24 @@ def decode_jwt(token):
 
 if jwt_secret == "[temporary]":
     print("WARNING: Please replace the jwt secret in secrets.py to a real secret.")
+
+#################### ML Routing ####################
+
+@app.route('/api/new-font', methods=['POST'])
+def new_font():
+    return jsonify({
+        'heading': 'Robot',
+        'body': 'Robot',
+    })
+
+@app.route('/api/recommend', methods=['POST'])
+def recommend():
+    return jsonify({
+        'heading': 'Amarante',
+        'body': 'Amarante',
+    })
+
+####################################################
 
 if __name__ == '__main__':
     today = datetime.date.today().strftime("%d%m%y")
