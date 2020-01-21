@@ -5,7 +5,7 @@ from utils import init_model
 
 
 if __name__ == '__main__':
-    device, net = init_model()
+    _, net = init_model()
     loaded_set = FontsLoader.get_set_loader()
 
     print()
