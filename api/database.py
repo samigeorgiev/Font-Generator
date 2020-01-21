@@ -30,11 +30,20 @@ def sql_select1(query, params):
     result = cursor.fetchone()
     return result
 
-def sql_insert(query, params):
+def sql_select(query, params):
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     cursor.execute(query, params)
+    result = cursor.fetchall()
+    return result
+
+def sql_execute(query, params):
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute(query, params)
+    result = cursor.rowcount
     conn.commit()
+    return result
 
 def email_exists(email):
     query = """SELECT email FROM users WHERE email = ?"""
@@ -51,11 +60,7 @@ def hash_password(password):
 
 def add_new_user(email, username, password):
     query = """INSERT INTO users (email, username, password) VALUES (?,?,?)"""
-    sql_insert(query, (email, username,hash_password(password)))
-
-def get_favourites(uid):
-    pass #TODO
-    return {"bs":True}
+    sql_execute(query, (email, username,hash_password(password)))
 
 def check_credentials(email, password):
     query = """SELECT email FROM users WHERE email = ? AND password = ?"""
@@ -69,4 +74,12 @@ def get_uid(email):
 
 def save_font(uid, fonts):
     query = """INSERT INTO favourites (uid, heading, body) VALUES (?,?,?)"""
-    sql_insert(query, (uid, fonts['heading'], fonts['body']))
+    sql_execute(query, (uid, fonts['heading'], fonts['body']))
+
+def get_saved_fonts(uid):
+    query = """SELECT heading, body, fid FROM favourites WHERE uid = ?"""
+    return sql_select(query, (uid,))
+
+def delete_font(uid, fid):
+    query = """DELETE FROM favourites WHERE fid = ? AND uid = ?"""
+    return sql_execute(query, (fid, uid))
