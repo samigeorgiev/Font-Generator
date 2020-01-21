@@ -32,7 +32,7 @@ class App extends Component {
         this.setState({
             user: null
         });
-        this.props.history('/');
+        this.props.history.push('/');
     };
 
     componentDidMount() {
