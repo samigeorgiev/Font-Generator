@@ -7,9 +7,11 @@ import torch
 from tqdm import tqdm
 
 from neural.dataset.CONFIG import BATCH_SIZE
-from neural.pair_font import pair_font
 
-TRAVERSE_EMBEDDINGS = True     # Wheather to search through the loaded embeddings
+TRAVERSE_EMBEDDINGS = False     # Wheather to search through the loaded embeddings
+
+if TRAVERSE_EMBEDDINGS:
+    from neural.pair_font import pair_font
 
 
 if TRAVERSE_EMBEDDINGS:
