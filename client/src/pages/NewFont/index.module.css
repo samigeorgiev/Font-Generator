@@ -1,6 +1,7 @@
 .NewFont {
     justify-self: center;
     width: 80%;
+    max-width: 70rem;
     display: flex;
     flex-flow: column;
     align-items: center;

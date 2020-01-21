@@ -23,14 +23,12 @@ class NewFont extends Component {
             heading: null,
             body: null
         },
-        lastRequestController: null,
+        lastRequestTimeout: null,
         message: null
     };
 
-    propertyHandler = async (property, e) => { // TODO TEST
-        this.state.lastRequestController && this.state.lastRequestController.abort();
-        const controller = new AbortController();
-        const signal = controller.signal;
+    propertyHandler = async (property, e) => {
+        clearTimeout(this.state.lastRequestTimeout);
         await this.setState({
             properties: {
                 ...this.state.properties,
@@ -38,8 +36,7 @@ class NewFont extends Component {
                     ...this.state.properties[property],
                     cur: e.target.value
                 }
-            },
-            lastRequestController: controller
+            }
         });
         const url = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_NEW_FONT_PATH;
         const options = {
@@ -52,17 +49,18 @@ class NewFont extends Component {
                 deltaContrast: this.state.properties.contrast.cur - this.state.properties.contrast.prev,
                 deltaThickness: this.state.properties.thickness.cur - this.state.properties.thickness.prev,
                 fonts: this.state.fonts
-            }),
-            signal
+            })
         };
-        console.log(options);
-        fetch(url, options).then(data => data.json()).then(fonts => {
+        const timeout = setTimeout(() => fetch(url, options).then(data => data.json()).then(fonts => {
             this.changeFonts({
                 heading: fonts.heading,
                 body: fonts.body
             });
         }).catch(err => {
             console.log(err);
+        }), 1000);
+        this.setState({
+            lastRequestTimeout: timeout
         });
     };
 
@@ -78,7 +76,7 @@ class NewFont extends Component {
         };
         try {
             await fetch(url, options);
-            this.props.history.push('/saved');
+
         } catch (e) {
             console.log(e);
         }
@@ -100,11 +98,6 @@ class NewFont extends Component {
 
     componentDidMount() { // TODO: TEST
         const url = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_RECOMMEND_PATH;
-        this.changeFonts({
-            heading: 'Amarante',
-            body: 'Amarante'
-        });
-        return;
         fetch(url, {
             headers: {
                 'Authorization': this.props.user?.token
