@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 import Auth from 'pages/Auth';
 import Home from 'pages/Home';
@@ -72,4 +72,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withRouter(App);
