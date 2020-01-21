@@ -8,7 +8,7 @@ The ResNet architecture is as follows:
 
 ![resnet-block](./assets/resnet-block.png)
 
-### Contrastive Similarity is used to traverse the vector space:
+### Contrastive Similarity and [Ball Tree](https://en.wikipedia.org/wiki/Ball_tree) is used to traverse the vector space:
 
 ![contrastive-similarity](./assets/cs-metric.png)
 
