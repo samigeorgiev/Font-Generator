@@ -2,11 +2,12 @@
 
 import torch
 
-import CONFIG
-from models import AutoEncoder
+from neural.models import AutoEncoder
+
+PATH_TO_EMBEDDER = '/Users/victor/Desktop/Font-Generator/api/neural/checkpoints/ae-512-224x224-loss-0.024.pth'
 
 
-def init_model(path_to_checkpoint=CONFIG.PATH_TO_EMBEDDER):
+def init_model(path_to_checkpoint=PATH_TO_EMBEDDER):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     net = AutoEncoder(

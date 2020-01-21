@@ -5,8 +5,8 @@ import numpy as np
 import torch
 from sklearn.neighbors import NearestNeighbors
 
-from dataset import FontsLoader
-from utils import init_model
+from neural.dataset import FontsLoader
+from neural.utils import init_model
 
 
 def contrastive_similarity(a, b):
@@ -47,5 +47,3 @@ if __name__ == '__main__':
 
     idx = pair_font(base_embedding, embeddings)
     print(names[idx])
-
-    # pairing = pair_font()

@@ -1,3 +1,5 @@
+# pylint: disable=no-member
+
 import datetime
 import json
 import logging
@@ -8,6 +10,9 @@ import database as db
 import jwt
 from flask import Flask, jsonify, redirect, request
 from flask_cors import CORS
+
+from neural_api import get_pair_by_contrast
+
 
 app = Flask(__name__)
 CORS(app)
@@ -85,9 +90,13 @@ if jwt_secret == "[temporary]":
 
 @app.route('/api/new-font', methods=['POST'])
 def new_font():
+    data = json.loads(request.data)
+
     return jsonify({
-        'heading': 'Robot',
-        'body': 'Robot',
+        'heading': get_pair_by_contrast(
+            data['fonts']['heading'], data['deltaContrast']),
+        'body': get_pair_by_contrast(
+            data['fonts']['body'], data['deltaContrast']),
     })
 
 @app.route('/api/recommend', methods=['POST'])

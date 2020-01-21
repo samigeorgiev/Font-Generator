@@ -1,7 +1,7 @@
 import torch
 
-from dataset import FontsLoader
-from utils import init_model
+from neural.dataset import FontsLoader
+from neural.utils import init_model
 
 
 if __name__ == '__main__':
