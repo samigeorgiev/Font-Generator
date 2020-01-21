@@ -1,3 +1,36 @@
 .Saved {
+    justify-self: center;
+    width: 90%;
+    max-width: 70rem;
+}
 
+.FontContainer {
+    position: relative;
+    width: 100%;
+    margin: 1rem 0;
+    padding: 1rem;
+    box-sizing: border-box;
+    background: #555;
+    border-radius: 4px;
+}
+
+.HeadingFont {
+    margin: 0;
+    font-size: 1.75rem;
+}
+
+.BodyFont {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.DeleteButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.1rem;
+    color: red;
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
