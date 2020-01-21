@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 import Auth from 'pages/Auth';
 import Home from 'pages/Home';
 import Layout from 'components/Layout';
 import NewFont from 'pages/NewFont';
+import Saved from 'pages/Saved';
 
 class App extends Component {
     state = {
-        user: null
+        user: {}
     };
 
     loginHandler = (token, expTime = 86400000) => {
@@ -31,6 +32,7 @@ class App extends Component {
         this.setState({
             user: null
         });
+        this.props.history('/');
     };
 
     componentDidMount() {
@@ -59,10 +61,15 @@ class App extends Component {
                             <Auth login={this.loginHandler} />
                         </Route>
                         : null}
+                    {this.state.user
+                        ? <Route path="/saved">
+                            <Saved user={this.state.user} />
+                        </Route>
+                        : null}
                 </Switch>
             </Layout>
         );
     }
 }
 
-export default App;
+export default withRouter(App);

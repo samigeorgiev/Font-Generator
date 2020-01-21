@@ -14,15 +14,17 @@
     text-transform: capitalize;
 }
 
-input[type=range] {
+.Slider {
     -webkit-appearance: none;
     width: 100%;
     margin: 7.9px 0;
 }
-input[type=range]:focus {
+
+.Slider:focus {
     outline: none;
 }
-input[type=range]::-webkit-slider-runnable-track {
+
+.Slider::-webkit-slider-runnable-track {
     width: 100%;
     height: 4.2px;
     cursor: pointer;
@@ -31,7 +33,8 @@ input[type=range]::-webkit-slider-runnable-track {
     border-radius: 0px;
     border: 0px solid #777777;
 }
-input[type=range]::-webkit-slider-thumb {
+
+.Slider::-webkit-slider-thumb {
     box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
     border: 0px solid #00001e;
     height: 20px;
@@ -42,10 +45,12 @@ input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     margin-top: -7.9px;
 }
-input[type=range]:focus::-webkit-slider-runnable-track {
+
+.Slider:focus::-webkit-slider-runnable-track {
     background: rgba(166, 166, 166, 0.78);
 }
-input[type=range]::-moz-range-track {
+
+.Slider::-moz-range-track {
     width: 100%;
     height: 4.2px;
     cursor: pointer;
@@ -54,7 +59,8 @@ input[type=range]::-moz-range-track {
     border-radius: 0px;
     border: 0px solid #777777;
 }
-input[type=range]::-moz-range-thumb {
+
+.Slider::-moz-range-thumb {
     box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
     border: 0px solid #00001e;
     height: 20px;
@@ -63,7 +69,7 @@ input[type=range]::-moz-range-thumb {
     background: #999999;
     cursor: pointer;
 }
-input[type=range]::-ms-track {
+.Slider::-ms-track {
     width: 100%;
     height: 4.2px;
     cursor: pointer;
@@ -71,19 +77,22 @@ input[type=range]::-ms-track {
     border-color: transparent;
     color: transparent;
 }
-input[type=range]::-ms-fill-lower {
+
+.Slider::-ms-fill-lower {
     background: rgba(140, 140, 140, 0.78);
     border: 0px solid #777777;
     border-radius: 0px;
     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
-input[type=range]::-ms-fill-upper {
+
+.Slider::-ms-fill-upper {
     background: rgba(153, 153, 153, 0.78);
     border: 0px solid #777777;
     border-radius: 0px;
     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
-input[type=range]::-ms-thumb {
+
+.Slider::-ms-thumb {
     box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
     border: 0px solid #00001e;
     height: 20px;
@@ -93,9 +102,11 @@ input[type=range]::-ms-thumb {
     cursor: pointer;
     height: 4.2px;
 }
-input[type=range]:focus::-ms-fill-lower {
+
+.Slider:focus::-ms-fill-lower {
     background: rgba(153, 153, 153, 0.78);
 }
-input[type=range]:focus::-ms-fill-upper {
+
+.Slider:focus::-ms-fill-upper {
     background: rgba(166, 166, 166, 0.78);
 }

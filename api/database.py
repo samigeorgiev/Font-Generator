@@ -15,10 +15,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 conn.cursor().execute('''
 CREATE TABLE IF NOT EXISTS `favourites` (
     `fid` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `user_id` INTEGER,
-    `preview` TEXT,
-    `font` TEXT ,
-    FOREIGN KEY(`user_id`) REFERENCES `users`(`userid`)
+    `uid` INTEGER,
+    `heading` TEXT,
+    `body` TEXT ,
+    FOREIGN KEY(`uid`) REFERENCES `users`(`uid`)
 )''')
 conn.commit()
 conn.close()
@@ -66,3 +66,7 @@ def get_uid(email):
     query = """SELECT uid FROM users WHERE email = ?"""
     result = sql_select1(query, (email,))
     return result[0]
+
+def save_font(uid, fonts):
+    query = """INSERT INTO favourites (uid, heading, body) VALUES (?,?,?)"""
+    sql_insert(query, (uid, fonts['heading'], fonts['body']))

@@ -15,7 +15,7 @@ import PasswordImage from 'assets/images/Password.svg';
 class Auth extends Component {
     state = {
         loading: false,
-        showLogin: 'Login',
+        showLogin: true,
         authMessage: null,
         messageColor: null
     };
@@ -50,6 +50,7 @@ class Auth extends Component {
                 messageColor: 'red'
             });
         }
+
         let authMessage, messageColor, showLogin = true;
         switch (response.status) {
             case 201:
@@ -81,6 +82,7 @@ class Auth extends Component {
                 authMessage = 'Error has happened';
                 messageColor = 'red';
         }
+
         this.setState({
             loading: false,
             showLogin: showLogin,
