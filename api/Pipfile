@@ -12,6 +12,7 @@ torch = "*"
 torchvision = "*"
 matplotlib = "*"
 scikit-learn = "*"
+tqdm = "*"
 
 [dev-packages]
 jupyter = "*"
