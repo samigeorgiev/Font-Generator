@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import webFontLoader from 'webfontloader';
 
 import Slider from 'components/Slider';
+// import Spinner from 'components/Spinner';
 import TextArea from 'components/TextArea';
 
 import styles from './index.module.css';
 
 class NewFont extends Component {
     state = {
+        loading: true,
+        error: null,
         properties: {
             contrast: {
                 prev: 0,
@@ -23,8 +26,7 @@ class NewFont extends Component {
             heading: null,
             body: null
         },
-        lastRequestTimeout: null,
-        message: null
+        lastRequestTimeout: null
     };
 
     propertyHandler = async (property, e) => {
@@ -36,9 +38,9 @@ class NewFont extends Component {
                     ...this.state.properties[property],
                     cur: e.target.value
                 }
-            },
-            message: null
+            }
         });
+
         const url = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_NEW_FONT_PATH;
         const options = {
             method: 'POST',
@@ -73,23 +75,13 @@ class NewFont extends Component {
                 'Authorization': this.props.user.token,
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify({ fonts: this.state.fonts })
+            body: JSON.stringify({fonts: this.state.fonts})
         };
         try {
             await fetch(url, options);
+        } catch (err) {
             this.setState({
-                message: {
-                    value: 'Saved',
-                    color: 'green'
-                }
-            });
-        } catch (e) {
-            console.log(e);
-            this.setState({
-                message: {
-                    value: 'Error happened',
-                    color: 'red'
-                }
+                error: err
             });
         }
     };
@@ -108,7 +100,7 @@ class NewFont extends Component {
         });
     };
 
-    componentDidMount() { // TODO: TEST
+    componentDidMount() {
         const url = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_RECOMMEND_PATH;
         fetch(url, {
             headers: {
@@ -119,15 +111,17 @@ class NewFont extends Component {
                 fonts: {
                     heading: fonts.heading,
                     body: fonts.body
-                }
+                },
+                loading: false
             });
-        }).catch(err => console.log(err));
+        }).catch(err => this.setState({ error: err }));
     }
 
     render() {
-        return (
-            <main className={styles.NewFont}>
-                <p className={styles.Message} style={{color: this.state.message?.color}}>{this.state.message?.value}</p>
+        if (this.state.error) { throw this.state.error; }
+
+        const pageContent = (
+            <>
                 <div className={styles.Headings}>
                     <h2>Heading font: {this.state.fonts.heading}</h2><h2>Body font: {this.state.fonts.body}</h2>
                 </div>
@@ -156,8 +150,17 @@ class NewFont extends Component {
                     Heading 2
                 </TextArea>
                 <TextArea font={this.state.fonts.body} size="1rem">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut suscipit dolor, vitae fermentum dui. Suspendisse potenti. Quisque eleifend malesuada nisi vitae molestie. Donec aliquam purus non diam elementum, ac faucibus justo fringilla. Ut lobortis porta velit vel gravida. Aliquam eget purus ac nibh euismod rutrum. Pellentesque non elit sed.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut suscipit dolor, vitae fermentum
+                    dui. Suspendisse potenti. Quisque eleifend malesuada nisi vitae molestie. Donec aliquam purus non
+                    diam elementum, ac faucibus justo fringilla. Ut lobortis porta velit vel gravida. Aliquam eget purus
+                    ac nibh euismod rutrum. Pellentesque non elit sed.
                 </TextArea>
+            </>
+        );
+
+        return (
+            <main className={styles.NewFont}>
+                {this.state.loading ? 'Loading...' : pageContent}
             </main>
         );
     }
