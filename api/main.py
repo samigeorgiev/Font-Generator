@@ -1,13 +1,18 @@
-from secrets import jwt_secret
-from flask import Flask
-from flask import request, redirect, jsonify
-from flask_cors import CORS
+# pylint: disable=no-member
+
+import datetime
+import json
 import logging
 from logging.handlers import RotatingFileHandler
+from secrets import jwt_secret
+
 import database as db
-import datetime
 import jwt
-import json
+from flask import Flask, jsonify, redirect, request
+from flask_cors import CORS
+
+from neural_api import get_pair_by_contrast
+
 
 app = Flask(__name__)
 CORS(app)
@@ -33,8 +38,8 @@ def register():
             app.logger.debug("Registration for '%s' failed - password too long" % username)
             return jsonify({"success":False, "error_message":"password too long"}), 422
             db.add_new_user(email, username, password)
-            app.logger.info("Registered new user ('%s', '%s')" % (username, email))
-            return jsonify({"success":True}), 201
+        app.logger.info("Registered new user ('%s', '%s')" % (username, email))
+        return jsonify({"success":True}), 201
     except Exception as e:
         app.logger.error("Error while processing registration ('%s', '%s')\n%s" % (username, email, e))
         return jsonify({"success":False, "error_message":"internal server error"}), 500
@@ -78,10 +83,30 @@ def decode_jwt(token):
     payload = jwt.decode(token.encode('utf-8'), jwt_secret)
     return payload['sub']
 
-@app.route('/api/favourites/<uid>')
-def favourites(uid):
-    # TODO
-    return db.get_favourites(uid)
+if jwt_secret == "[temporary]":
+    print("WARNING: Please replace the jwt secret in secrets.py to a real secret.")
+
+#################### Neural Routing ####################
+
+@app.route('/api/new-font', methods=['POST'])
+def new_font():
+    data = json.loads(request.data)
+
+    return jsonify({
+        'heading': get_pair_by_contrast(
+            data['fonts']['heading'], data['deltaContrast']),
+        'body': get_pair_by_contrast(
+            data['fonts']['body'], data['deltaContrast']),
+    })
+
+@app.route('/api/recommend', methods=['POST'])
+def recommend():
+    return jsonify({
+        'heading': 'Amarante',
+        'body': 'Amarante',
+    })
+
+########################################################
 
 if __name__ == '__main__':
     today = datetime.date.today().strftime("%d%m%y")

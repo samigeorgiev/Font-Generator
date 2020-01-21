@@ -56,11 +56,10 @@ class NewFont extends Component {
             signal
         };
         console.log(options);
-        return;
         fetch(url, options).then(data => data.json()).then(fonts => {
             this.changeFonts({
-                heading: 'Amarante',
-                body: 'Open Sans'
+                heading: fonts.heading,
+                body: fonts.body
             });
         }).catch(err => {
             console.log(err);
@@ -103,7 +102,7 @@ class NewFont extends Component {
         const url = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_RECOMMEND_PATH;
         this.changeFonts({
             heading: 'Amarante',
-            body: 'Open Sans'
+            body: 'Amarante'
         });
         return;
         fetch(url, {

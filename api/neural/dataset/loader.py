@@ -21,7 +21,7 @@ class FontsLoader:
         ])
 
     @staticmethod
-    def _get_set():
+    def get_set():
         return FontsDataset(CONFIG.PATH_TO_FOLDER,
                 transform=FontsLoader._get_transform())
 
@@ -30,5 +30,5 @@ class FontsLoader:
                         shuffle=CONFIG.SHUFFLE,
                         num_workers=CONFIG.NUM_WORKERS):
 
-        return DataLoader(FontsLoader._get_set(),
+        return DataLoader(FontsLoader.get_set(),
                 batch_size, shuffle, num_workers=num_workers)

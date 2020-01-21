@@ -8,8 +8,14 @@ flask = "*"
 flask-httpauth = "*"
 pyjwt = "*"
 flask-cors = "*"
+torch = "*"
+torchvision = "*"
+matplotlib = "*"
+scikit-learn = "*"
 
 [dev-packages]
+jupyter = "*"
+pylint = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.7"
