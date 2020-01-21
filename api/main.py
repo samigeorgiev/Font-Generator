@@ -86,7 +86,7 @@ def decode_jwt(token):
 if jwt_secret == "[temporary]":
     print("WARNING: Please replace the jwt secret in secrets.py to a real secret.")
 
-#################### ML Routing ####################
+#################### Neural Routing ####################
 
 @app.route('/api/new-font', methods=['POST'])
 def new_font():
@@ -106,7 +106,7 @@ def recommend():
         'body': 'Amarante',
     })
 
-####################################################
+########################################################
 
 if __name__ == '__main__':
     today = datetime.date.today().strftime("%d%m%y")
