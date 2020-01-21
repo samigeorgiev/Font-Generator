@@ -47,3 +47,6 @@ class FontsDataset(Dataset):
             image = self.transform(image)
 
         return {'image': image, 'name': self._img_names[idx]}
+
+    def get_image_by_name(self, name):
+        return self[self._img_names.index(name)]

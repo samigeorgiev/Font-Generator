@@ -6,7 +6,7 @@ import CONFIG
 from models import AutoEncoder
 
 
-def init_model(path_to_checkpoint=CONFIG.PATH_TO_CHECKPOINT):
+def init_model(path_to_checkpoint=CONFIG.PATH_TO_EMBEDDER):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     net = AutoEncoder(
