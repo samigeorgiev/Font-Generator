@@ -11,6 +11,11 @@
     display: none;
 }
 
+.Message {
+    font-size: 1.25rem;
+    margin: 0;
+}
+
 .Headings {
     width: 100%;
     display: flex;

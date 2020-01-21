@@ -36,7 +36,8 @@ class NewFont extends Component {
                     ...this.state.properties[property],
                     cur: e.target.value
                 }
-            }
+            },
+            message: null
         });
         const url = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_NEW_FONT_PATH;
         const options = {
@@ -76,9 +77,20 @@ class NewFont extends Component {
         };
         try {
             await fetch(url, options);
-
+            this.setState({
+                message: {
+                    value: 'Saved',
+                    color: 'green'
+                }
+            });
         } catch (e) {
             console.log(e);
+            this.setState({
+                message: {
+                    value: 'Error happened',
+                    color: 'red'
+                }
+            });
         }
     };
 
@@ -115,6 +127,7 @@ class NewFont extends Component {
     render() {
         return (
             <main className={styles.NewFont}>
+                <p className={styles.Message} style={{color: this.state.message?.color}}>{this.state.message?.value}</p>
                 <div className={styles.Headings}>
                     <h2>Heading font: {this.state.fonts.heading}</h2><h2>Body font: {this.state.fonts.body}</h2>
                 </div>
