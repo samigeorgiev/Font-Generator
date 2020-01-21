@@ -136,3 +136,4 @@ dmypy.json
 
 # Embeddings
 /font_embeddings
+**/*/knn_search_ball_tree.b

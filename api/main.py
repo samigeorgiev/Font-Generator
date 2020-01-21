@@ -100,11 +100,15 @@ if jwt_secret == "[temporary]":
 def new_font():
     data = json.loads(request.data)
 
+    heading = get_pair_by_contrast(
+        data['fonts']['heading'], data['deltaContrast'])
+
+    body = get_pair_by_contrast(
+        heading, data['deltaContrast'])
+
     return jsonify({
-        'heading': get_pair_by_contrast(
-            data['fonts']['heading'], data['deltaContrast']),
-        'body': get_pair_by_contrast(
-            data['fonts']['body'], data['deltaContrast']),
+        'heading': heading,
+        'body': body,
     })
 
 @app.route('/api/recommend', methods=['POST'])

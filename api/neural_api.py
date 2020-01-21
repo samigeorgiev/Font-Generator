@@ -9,7 +9,7 @@ from tqdm import tqdm
 from neural.dataset.CONFIG import BATCH_SIZE
 from neural.pair_font import pair_font
 
-LOAD_EMBEDDINGS = False     # Wheather to load embeddings
+LOAD_EMBEDDINGS = True     # Wheather to load embeddings
 
 
 if LOAD_EMBEDDINGS:
@@ -31,7 +31,7 @@ def get_pair_by_contrast(name, contrast):
     if LOAD_EMBEDDINGS:
         print('Pairing...')
         base_embedding = random.choice(embeddings)
-        idx = pair_font(base_embedding, embeddings)
+        idx = pair_font(base_embedding)
 
         print(metadata[idx][0])
 

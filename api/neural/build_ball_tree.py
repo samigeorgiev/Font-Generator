@@ -7,7 +7,7 @@ from sklearn.neighbors import NearestNeighbors
 from tqdm import tqdm
 import pickle
 
-from neural.dataset.CONFIG import BATCH_SIZE
+from dataset.CONFIG import BATCH_SIZE
 
 
 def contrastive_similarity(a, b):
@@ -19,21 +19,20 @@ def contrastive_similarity(a, b):
     return - N*P
 
 if __name__ == '__main__':
-    NUM_BATCHES = 5
+    NUM_BATCHES = 55
 
-    embeddings = torch.load('./font_embeddings/font-embeddings-batch-1.pt')
+    embeddings = torch.load('./neural/font_embeddings/font-embeddings-batch-1.pt')
     for i in tqdm(range(2, NUM_BATCHES+1), desc='Loading embeddings...'):
         embeddings = torch.cat((
             embeddings,
-            torch.load(f'./font_embeddings/font-embeddings-batch-{i}.pt')
+            torch.load(f'./neural/font_embeddings/font-embeddings-batch-{i}.pt')
         ), dim=0)
 
     embeddings = embeddings.view(BATCH_SIZE * NUM_BATCHES, -1).detach().cpu().numpy()
 
-    nbrs = NearestNeighbors(n_neighbors=100, algorithm='ball_tree',
-        metric=contrastive_similarity, n_jobs=-1)
+    knn_search_ball_tree = NearestNeighbors(n_neighbors=10, algorithm='ball_tree', n_jobs=-1)
 
     # Build the Ball Tree
-    nbrs.fit(embeddings)
+    knn_search_ball_tree.fit(embeddings)
 
-    pickle.dump(nbrs, open('knn_search.b', 'wb'))
+    pickle.dump(knn_search_ball_tree, open('./neural/checkpoints/knn_search_ball_tree.b', 'wb'), protocol=4)

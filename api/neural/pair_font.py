@@ -8,6 +8,8 @@ from sklearn.neighbors import NearestNeighbors
 from neural.dataset import FontsLoader
 from neural.utils import init_model
 
+import pickle
+
 
 def contrastive_similarity(a, b):
     prod = a * b
@@ -17,18 +19,14 @@ def contrastive_similarity(a, b):
 
     return - N*P
 
-def pair_font(base_embedding, embeddings, contrast=0, n_neighbors=5):
+knn_search_ball_tree = pickle.load(open('./neural/checkpoints/knn_search_ball_tree.b', 'rb'))
+# knn_search_ball_tree.metric = contrastive_similarity
 
-    nbrs = NearestNeighbors(n_neighbors=n_neighbors, algorithm='ball_tree',
-        metric=contrastive_similarity, n_jobs=-1)
-
-    # Build the Ball Tree
-    nbrs.fit(embeddings)
-
+def pair_font(base_embedding, contrast=0):
     # KNN Search
-    indices = nbrs.kneighbors([base_embedding], n_neighbors=10, return_distance=False)[0]
+    indices = knn_search_ball_tree.kneighbors([base_embedding], n_neighbors=100, return_distance=False)[0]
 
-    return indices[(contrast*10)//1]
+    return indices[(contrast*100)//1]
 
 
 if __name__ == '__main__':
