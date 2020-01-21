@@ -1,12 +1,12 @@
 # pylint: disable=no-member
 # pylint: disable=not-callable
 
-import torch
 import numpy as np
+import torch
 from sklearn.neighbors import NearestNeighbors
 
-from utils import init_model
 from dataset import FontsLoader
+from utils import init_model
 
 
 def contrastive_similarity(a, b):
@@ -22,9 +22,13 @@ def pair_font(base_embedding, embeddings, contrast=0, n_neighbors=5):
     nbrs = NearestNeighbors(n_neighbors=n_neighbors, algorithm='ball_tree',
         metric=contrastive_similarity, n_jobs=-1)
 
-    print(nbrs.fit(embeddings))
+    # Build the Ball Tree
+    nbrs.fit(embeddings)
 
-    print(nbrs.kneighbors([base_embedding], n_neighbors=3, return_distance=False)[0])
+    # KNN Search
+    indices = nbrs.kneighbors([base_embedding], n_neighbors=10, return_distance=False)[0]
+
+    return indices[(contrast*10)//1]
 
 
 if __name__ == '__main__':
@@ -39,7 +43,9 @@ if __name__ == '__main__':
 
     base_embedding = torch.flatten(base_embedding).detach().cpu().numpy()
     embeddings = torch.load('./font_embeddings/font-embeddings-batch-1.pt').view(32, -1).detach().cpu().numpy()
+    names = torch.load('./font_embeddings/font-names-batch-1.pt')
 
-    pair_font(base_embedding, embeddings)
+    idx = pair_font(base_embedding, embeddings)
+    print(names[idx])
 
     # pairing = pair_font()
