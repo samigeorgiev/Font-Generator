@@ -19,7 +19,7 @@ def contrastive_similarity(a, b):
     return - N*P
 
 if __name__ == '__main__':
-    NUM_BATCHES = 55
+    NUM_BATCHES = 20
 
     embeddings = torch.load('./neural/font_embeddings/font-embeddings-batch-1.pt')
     for i in tqdm(range(2, NUM_BATCHES+1), desc='Loading embeddings...'):

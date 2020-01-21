@@ -1,14 +1,14 @@
 # pylint: disable=no-member
 # pylint: disable=not-callable
 
+import pickle
+
 import numpy as np
 import torch
 from sklearn.neighbors import NearestNeighbors
 
 from neural.dataset import FontsLoader
 from neural.utils import init_model
-
-import pickle
 
 
 def contrastive_similarity(a, b):
@@ -24,9 +24,10 @@ knn_search_ball_tree = pickle.load(open('./neural/checkpoints/knn_search_ball_tr
 
 def pair_font(base_embedding, contrast=0):
     # KNN Search
-    indices = knn_search_ball_tree.kneighbors([base_embedding], n_neighbors=100, return_distance=False)[0]
+    indices = knn_search_ball_tree.kneighbors([base_embedding], n_neighbors=201, return_distance=False)[0]
 
-    return indices[(contrast*100)//1]
+    similarity = (contrast * -1 + 1) / 2
+    return indices[int(similarity*200)]
 
 
 if __name__ == '__main__':
