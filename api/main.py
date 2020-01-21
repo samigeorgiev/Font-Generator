@@ -23,23 +23,31 @@ def register():
     email = data['email']
     username = data['name']
     password = data['password']
+
     try:
         app.logger.debug("Registration attempt ('%s', '%s')" % (username, email))
+
         if (db.email_exists(email)):
             app.logger.debug("Registration for '%s' failed - email already taken" % email)
             return jsonify({"success":False, "error_message":"email already registered"}), 409
+
         if (db.username_exists(username)):
             app.logger.debug("Registration for '%s' failed - username already taken" % username)
             return jsonify({"success":False, "error_message":"username already taken"}), 409
+
         if (len(password) < 8):
             app.logger.debug("Registration for '%s' failed - password too short" % username)
             return jsonify({"success":False, "error_message":"password too short"}), 422
+
         if (len(password) > 64):
             app.logger.debug("Registration for '%s' failed - password too long" % username)
             return jsonify({"success":False, "error_message":"password too long"}), 422
-            db.add_new_user(email, username, password)
+        
+        db.add_new_user(email, username, password)
         app.logger.info("Registered new user ('%s', '%s')" % (username, email))
+
         return jsonify({"success":True}), 201
+
     except Exception as e:
         app.logger.error("Error while processing registration ('%s', '%s')\n%s" % (username, email, e))
         return jsonify({"success":False, "error_message":"internal server error"}), 500
