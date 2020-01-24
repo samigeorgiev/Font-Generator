@@ -10,9 +10,7 @@ import database as db
 import jwt
 from flask import Flask, jsonify, redirect, request
 from flask_cors import CORS
-
-from neural_api import get_pair_by_contrast
-
+from neural_api import get_pair_by_contrast, get_random_font
 
 app = Flask(__name__)
 CORS(app)
@@ -114,8 +112,8 @@ def new_font():
 @app.route('/api/recommend', methods=['GET'])
 def recommend():
     return jsonify({
-        'heading': 'Amarante',
-        'body': 'Amarante',
+        'heading': get_random_font(),
+        'body': get_random_font(),
     }), 200
 
 ########################################################
@@ -180,4 +178,4 @@ if __name__ == '__main__':
     handler.setLevel(logging.DEBUG)
     handler.setFormatter(formatter)
     app.logger.addHandler(handler)
-    app.run()
+    app.run(host='0.0.0.0')
