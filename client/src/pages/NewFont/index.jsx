@@ -54,14 +54,21 @@ class NewFont extends Component {
                 fonts: this.state.fonts
             })
         };
-        const timeout = setTimeout(() => fetch(url, options).then(data => data.json()).then(fonts => {
-            this.changeFonts({
-                heading: fonts.heading,
-                body: fonts.body
-            });
-        }).catch(err => {
-            console.log(err);
-        }), 1000);
+
+        const timeout = setTimeout(() => {
+            fetch(url, options).then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    throw new Error("Fetching new font failed with code: " + res.status);
+                }
+            }).then(fonts => {
+                this.changeFonts({
+                    heading: fonts.heading,
+                    body: fonts.body
+                });
+            }).catch(err => this.setState({ error: err }));
+        }, 1000);
         this.setState({
             lastRequestTimeout: timeout
         });

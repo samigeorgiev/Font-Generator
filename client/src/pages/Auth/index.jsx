@@ -15,6 +15,7 @@ import PasswordImage from 'assets/images/Password.svg';
 class Auth extends Component {
     state = {
         loading: false,
+        error: null,
         showLogin: true,
         authMessage: null,
         messageColor: null
@@ -44,10 +45,9 @@ class Auth extends Component {
             response = await fetch(process.env.REACT_APP_BASE_URL + path, options);
             data = await response.json();
         } catch (err) {
-            return this.setState({
+            this.setState({
                 loading: false,
-                authMessage: 'Network error',
-                messageColor: 'red'
+                error: err
             });
         }
 
@@ -92,6 +92,8 @@ class Auth extends Component {
     };
 
     render() {
+        if (this.state.error) { throw this.state.error; }
+
         const position = this.state.showLogin ? styles.Left : styles.Right;
 
         const loginInputs = {
@@ -163,7 +165,7 @@ class Auth extends Component {
             }
         };
 
-        let authContent = <Spinner />;
+        let authContent = <Spinner theme="dark" />;
         if (!this.state.loading) {
             authContent = (
                 <>
