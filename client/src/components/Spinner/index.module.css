@@ -48,19 +48,19 @@
     animation: load2 2s infinite ease;
 }
 
-.Dark {
+.dark {
     color: #0e1117;
 }
 
-.Light {
+.light {
     color: #777777;
 }
 
-.Dark:before {
+.dark:before {
     background: #777777;
 }
 
-.Light:before {
+.light:before {
     background: #0e1117;
 }
 
