@@ -11,6 +11,7 @@ import Saved from 'pages/Saved';
 class App extends Component {
     state = {
         user: null
+
     };
 
     loginHandler = (token, expTime = 86400000) => {
