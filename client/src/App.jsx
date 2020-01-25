@@ -14,7 +14,7 @@ class App extends Component {
 
     };
 
-    loginHandler = (token, expTime = 86400000) => {
+    loginHandler = (token, expTime) => {
         localStorage.setItem('token', token);
         localStorage.setItem('expDate', new Date(new Date().getTime() + +expTime));
         this.setState({
