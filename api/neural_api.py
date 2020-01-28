@@ -29,6 +29,11 @@ with open('./neural/data/metadata.tsv') as fd:
     metadata = list(csv.reader(fd, delimiter="\t", quotechar='"'))
 
 
+def get_random_font():
+    choice = random.choice(metadata)[0].split(' ')[0]
+    print(choice)
+    return choice
+
 def get_pair_by_contrast(name, contrast):
     if TRAVERSE_EMBEDDINGS and contrast < 0:
         print('Pairing...')
@@ -39,5 +44,4 @@ def get_pair_by_contrast(name, contrast):
         print(new_font)
         return new_font
 
-    print(random.choice(metadata)[0].split(' ')[0])
-    return random.choice(metadata)[0].split(' ')[0]
+    return get_random_font()

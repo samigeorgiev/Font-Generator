@@ -10,9 +10,7 @@ import database as db
 import jwt
 from flask import Flask, jsonify, redirect, request
 from flask_cors import CORS
-
-from neural_api import get_pair_by_contrast
-
+from neural_api import get_pair_by_contrast, get_random_font
 
 app = Flask(__name__)
 CORS(app)
@@ -114,19 +112,17 @@ def new_font():
 @app.route('/api/recommend', methods=['GET'])
 def recommend():
     return jsonify({
-        'heading': 'Amarante',
-        'body': 'Amarante',
+        'heading': get_random_font(),
+        'body': get_random_font(),
     }), 200
 
 ########################################################
 
 @app.route('/api/save-font', methods=['POST'])
 def save_font():
-    # TODO - logging
     data = json.loads(request.data)
     fonts = data['fonts']
     token = request.headers['Authorization']
-    print(token)
     try:
         uid = decode_jwt(token)
         db.save_font(uid, fonts)
@@ -136,7 +132,38 @@ def save_font():
     except jwt.InvalidTokenError:
         return jsonify({"success":False, "error_message":"invalid token"}), 400
     except Exception as e:
-        print(e)
+        app.logger.error("Error while saving font.\n%s" % (e,))
+        return jsonify({"success":False, "error_message":"internal server error"}), 500
+
+@app.route('/api/saved', methods=['GET'])
+def saved():
+    token = request.headers['Authorization']
+    try:
+        uid = decode_jwt(token)
+        result = db.get_saved_fonts(uid)
+        result = list(map(lambda x: {"heading":x[0], "body":x[1], "id":x[2]}, result))
+        return jsonify(result), 200
+    except jwt.ExpiredSignatureError:
+        return jsonify({"success":False, "error_message":"expired token"}), 401
+    except jwt.InvalidTokenError:
+        return jsonify({"success":False, "error_message":"invalid token"}), 400
+
+@app.route('/api/delete-font/<int:fid>', methods=['DELETE'])
+def delete_font(fid):
+    token = request.headers['Authorization']
+    try:
+        uid = decode_jwt(token)
+        result = db.delete_font(uid, fid)
+        if result:
+            return jsonify({"success":True}), 200
+        else:
+            return jsonify({"success":False, "error_message":"entry does not exist"}), 404
+    except jwt.ExpiredSignatureError:
+        return jsonify({"success":False, "error_message":"expired token"}), 401
+    except jwt.InvalidTokenError:
+        return jsonify({"success":False, "error_message":"invalid token"}), 400
+    except Exception as e:
+        app.logger.error("Error while deleting saved font.\n%s" % (e,))
         return jsonify({"success":False, "error_message":"internal server error"}), 500
 
 if __name__ == '__main__':
@@ -151,4 +178,4 @@ if __name__ == '__main__':
     handler.setLevel(logging.DEBUG)
     handler.setFormatter(formatter)
     app.logger.addHandler(handler)
-    app.run()
+    app.run(host='0.0.0.0')
