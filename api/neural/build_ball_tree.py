@@ -21,11 +21,11 @@ def contrastive_similarity(a, b):
 if __name__ == '__main__':
     NUM_BATCHES = 20
 
-    embeddings = torch.load('./neural/font_embeddings/font-embeddings-batch-1.pt')
+    embeddings = torch.load('neural/font_embeddings/font-embeddings-batch-1.pt')
     for i in tqdm(range(2, NUM_BATCHES+1), desc='Loading embeddings...'):
         embeddings = torch.cat((
             embeddings,
-            torch.load(f'./neural/font_embeddings/font-embeddings-batch-{i}.pt')
+            torch.load(f'neural/font_embeddings/font-embeddings-batch-{i}.pt')
         ), dim=0)
 
     embeddings = embeddings.view(BATCH_SIZE * NUM_BATCHES, -1).detach().cpu().numpy()

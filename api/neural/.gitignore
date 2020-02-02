@@ -135,5 +135,5 @@ dmypy.json
 .DS_Store
 
 # Embeddings
-/font_embeddings
+/font_embeddings/*.pt
 **/*/knn_search_ball_tree.b
