@@ -2,9 +2,9 @@
 
 import torch
 
-from neural.models import AutoEncoder
+from models import AutoEncoder
 
-PATH_TO_EMBEDDER = '/Users/victor/Desktop/Font-Generator/api/neural/checkpoints/ae-512-224x224-loss-0.024.pth'
+PATH_TO_EMBEDDER = 'neural/checkpoints/ae-512-224x224-loss-0.024.pth'
 
 
 def init_model(path_to_checkpoint=PATH_TO_EMBEDDER):

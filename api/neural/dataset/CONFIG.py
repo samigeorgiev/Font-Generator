@@ -9,7 +9,7 @@ __all__ = [
 ]
 
 
-PATH_TO_FOLDER = '/Users/victor/Desktop/Font-Generator/api/neural/data'
+PATH_TO_FOLDER = 'neural/data'
 
 BATCH_SIZE = 32
 SHUFFLE = True
