@@ -11,20 +11,22 @@ import Saved from 'pages/Saved';
 class App extends Component {
     state = {
         user: null
-
     };
 
     loginHandler = (token, expTime) => {
         localStorage.setItem('token', token);
-        localStorage.setItem('expDate', new Date(new Date().getTime() + +expTime));
+        // localStorage.setItem(
+        //     'expDate',
+        //     new Date(new Date().getTime() + +expTime)
+        // );
         this.setState({
             user: {
                 token: token
             }
         });
-        setTimeout(() => {
-            this.logoutHandler();
-        }, expTime);
+        // setTimeout(() => {
+        //     this.logoutHandler();
+        // }, expTime);
     };
 
     logoutHandler = () => {
@@ -45,6 +47,7 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <Layout
                 isAuth={Boolean(this.state.user)}
@@ -57,16 +60,16 @@ class App extends Component {
                     <Route path="/new-font" exact>
                         <NewFont user={this.state.user} />
                     </Route>
-                    {!this.state.user
-                        ? <Route path="/auth">
+                    {!this.state.user ? (
+                        <Route path="/auth">
                             <Auth login={this.loginHandler} />
                         </Route>
-                        : null}
-                    {this.state.user
-                        ? <Route path="/saved">
+                    ) : null}
+                    {this.state.user ? (
+                        <Route path="/saved">
                             <Saved user={this.state.user} />
                         </Route>
-                        : null}
+                    ) : null}
                 </Switch>
             </Layout>
         );
